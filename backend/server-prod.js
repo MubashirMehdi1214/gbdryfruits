@@ -69,10 +69,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/gbdryfruits', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/gbdryfruits')
 .then(() => console.log('✅ MongoDB connected to GBDRYFRUITS database'))
 .catch(err => {
     console.error('❌ MongoDB connection error:', err);
