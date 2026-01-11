@@ -1,7 +1,7 @@
 // GBDRYFRUITS - Configuration
 window.CONFIG = {
     // API Configuration
-    API_URL: process.env.API_URL || 'https://your-railway-url.railway.app',
+    API_URL: process.env.API_URL || 'https://gbdryfruits-production.up.railway.app',
     LOCAL_API_URL: 'http://localhost:5000',
     
     // Environment Detection
