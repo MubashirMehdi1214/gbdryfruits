@@ -1,0 +1,59 @@
+GBDRYFRUITS - Online Dry Fruits Store
+=====================================
+
+Setup Instructions:
+
+1. Prerequisites:
+   - Node.js (v14 or higher)
+   - MongoDB (installed and running)
+   - Git
+
+2. Backend Setup:
+   cd backend
+   npm install
+   cp .env.example .env
+   # Update .env with your MongoDB URI and JWT secret
+   npm run dev
+
+3. Frontend Setup:
+   cd frontend
+   npm install
+   npm start
+
+4. Database Setup:
+   # Run the seeder to add demo products
+   cd backend
+   node seed/products.js
+
+5. Admin Access:
+   - Register a new account
+   - Manually update user role to 'admin' in MongoDB
+   - Or create admin user directly in database
+
+6. Features:
+   - User authentication (JWT)
+   - Product management
+   - Shopping cart
+   - Order management
+   - Admin panel
+   - Responsive design
+
+7. Payment Methods:
+   - Bank Transfer
+   - Cash on Delivery
+
+8. Default Admin:
+   Email: admin@gbdryfruits.com
+   Password: admin123
+
+9. API Endpoints:
+   - Auth: /api/auth
+   - Products: /api/products
+   - Orders: /api/orders
+   - Users: /api/users
+
+10. File Structure:
+    /frontend (HTML/CSS/JS frontend)
+    /backend (Node.js/Express API)
+
+For support, check the code comments or contact development team.

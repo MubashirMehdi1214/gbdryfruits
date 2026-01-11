@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - GBDRYFRUITS</title>
+    <meta name="description" content="Review your shopping cart and proceed to checkout for premium dry fruits and nuts from GBDRYFRUITS.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2D5016',
+                        secondary: '#8B4513',
+                        accent: '#D4A574',
+                        cream: '#FAF7F0',
+                        light: '#F5F5F5'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .quantity-input::-webkit-inner-spin-button,
+        .quantity-input::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="flex items-center">
+                        <img src="images/LOGO.png" alt="GBDRYFRUITS" class="h-10 w-auto">
+                    </a>
+                </div>
+                
+                <!-- Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-gray-700 hover:text-primary font-medium transition-colors">Home</a>
+                    <a href="products.html" class="text-gray-700 hover:text-primary font-medium transition-colors">Products</a>
+                    <a href="about.html" class="text-gray-700 hover:text-primary font-medium transition-colors">About</a>
+                    <a href="contact.html" class="text-gray-700 hover:text-primary font-medium transition-colors">Contact</a>
+                </nav>
+                
+                <!-- Actions -->
+                <div class="flex items-center space-x-4">
+                    <a href="login.html" class="text-gray-700 hover:text-primary font-medium transition-colors">Login</a>
+                    <a href="#" class="relative p-2 text-gray-700 hover:text-primary transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                        </svg>
+                        <span class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Title -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Shopping Cart</h1>
+            <p class="text-gray-600 mt-2">Review your items and proceed to checkout</p>
+        </div>
+
+        <!-- Two Column Layout -->
+        <div class="lg:grid lg:grid-cols-12 gap-8">
+            <!-- Left Column - Cart Items (wider) -->
+            <div class="lg:col-span-8">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <!-- Cart Items Header -->
+                    <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+                        <h2 class="text-lg font-semibold text-gray-900">Cart Items</h2>
+                    </div>
+                    
+                    <!-- Cart Items Container -->
+                    <div id="cartItems" class="divide-y divide-gray-200">
+                        <!-- Sample Cart Item 1 -->
+                        <div class="cart-item p-6 flex items-center space-x-4 hover:bg-gray-50 transition-colors">
+                            <!-- Product Image -->
+                            <div class="flex-shrink-0">
+                                <img src="images/Nuts without Shell Premium Almonds (California).png" alt="Premium Almonds" class="w-20 h-20 object-cover rounded-lg border border-gray-200">
+                            </div>
+                            
+                            <!-- Product Details -->
+                            <div class="flex-1 min-w-0">
+                                <h3 class="text-base font-semibold text-gray-900 truncate">Premium Almonds</h3>
+                                <p class="text-sm text-gray-500">1kg</p>
+                            </div>
+                            
+                            <!-- Quantity Selector -->
+                            <div class="flex items-center space-x-2">
+                                <button onclick="updateQuantity('item1', -1)" class="w-8 h-8 rounded-full border border-gray-300 bg-white hover:bg-gray-50 flex items-center justify-center transition-colors">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                                    </svg>
+                                </button>
+                                <input type="number" id="qty-item1" value="2" min="1" max="99" class="quantity-input w-12 h-8 text-center border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <button onclick="updateQuantity('item1', 1)" class="w-8 h-8 rounded-full border border-gray-300 bg-white hover:bg-gray-50 flex items-center justify-center transition-colors">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            <!-- Price and Total -->
+                            <div class="text-right">
+                                <p class="text-sm text-gray-500">Rs. 850/kg</p>
+                                <p class="text-base font-semibold text-gray-900">Rs. 1,700</p>
+                            </div>
+                        </div>
+
+                        <!-- Sample Cart Item 2 -->
+                        <div class="cart-item p-6 flex items-center space-x-4 hover:bg-gray-50 transition-colors">
+                            <!-- Product Image -->
+                            <div class="flex-shrink-0">
+                                <img src="images/Nuts without Shell Premium Cashews (W240).png" alt="Premium Cashews" class="w-20 h-20 object-cover rounded-lg border border-gray-200">
+                            </div>
+                            
+                            <!-- Product Details -->
+                            <div class="flex-1 min-w-0">
+                                <h3 class="text-base font-semibold text-gray-900 truncate">Premium Cashews (W240)</h3>
+                                <p class="text-sm text-gray-500">500g</p>
+                            </div>
+                            
+                            <!-- Quantity Selector -->
+                            <div class="flex items-center space-x-2">
+                                <button onclick="updateQuantity('item2', -1)" class="w-8 h-8 rounded-full border border-gray-300 bg-white hover:bg-gray-50 flex items-center justify-center transition-colors">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                                    </svg>
+                                </button>
+                                <input type="number" id="qty-item2" value="1" min="1" max="99" class="quantity-input w-12 h-8 text-center border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <button onclick="updateQuantity('item2', 1)" class="w-8 h-8 rounded-full border border-gray-300 bg-white hover:bg-gray-50 flex items-center justify-center transition-colors">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            <!-- Price and Total -->
+                            <div class="text-right">
+                                <p class="text-sm text-gray-500">Rs. 1,200/kg</p>
+                                <p class="text-base font-semibold text-gray-900">Rs. 600</p>
+                            </div>
+                        </div>
+
+                        <!-- Sample Cart Item 3 -->
+                        <div class="cart-item p-6 flex items-center space-x-4 hover:bg-gray-50 transition-colors">
+                            <!-- Product Image -->
+                            <div class="flex-shrink-0">
+                                <img src="images/Nuts with Shell Pistachios (Salted).png" alt="Salted Pistachios" class="w-20 h-20 object-cover rounded-lg border border-gray-200">
+                            </div>
+                            
+                            <!-- Product Details -->
+                            <div class="flex-1 min-w-0">
+                                <h3 class="text-base font-semibold text-gray-900 truncate">Pistachios (Salted)</h3>
+                                <p class="text-sm text-gray-500">500g</p>
+                            </div>
+                            
+                            <!-- Quantity Selector -->
+                            <div class="flex items-center space-x-2">
+                                <button onclick="updateQuantity('item3', -1)" class="w-8 h-8 rounded-full border border-gray-300 bg-white hover:bg-gray-50 flex items-center justify-center transition-colors">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                                    </svg>
+                                </button>
+                                <input type="number" id="qty-item3" value="1" min="1" max="99" class="quantity-input w-12 h-8 text-center border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <button onclick="updateQuantity('item3', 1)" class="w-8 h-8 rounded-full border border-gray-300 bg-white hover:bg-gray-50 flex items-center justify-center transition-colors">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            <!-- Price and Total -->
+                            <div class="text-right">
+                                <p class="text-sm text-gray-500">Rs. 2,500/kg</p>
+                                <p class="text-base font-semibold text-gray-900">Rs. 1,250</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Empty Cart Message (hidden by default) -->
+                    <div id="cartEmpty" class="hidden p-12 text-center">
+                        <svg class="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                        </svg>
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">Your cart is empty</h3>
+                        <p class="text-gray-500 mb-6">Browse our premium dry fruits and add some items to your cart!</p>
+                        <a href="products.html" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-green-700 transition-colors">
+                            Continue Shopping
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Order Summary (narrower/sidebar) -->
+            <div class="lg:col-span-4">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden sticky top-8">
+                    <!-- Order Summary Header -->
+                    <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+                        <h2 class="text-lg font-semibold text-gray-900">Order Summary</h2>
+                    </div>
+                    
+                    <div class="p-6 space-y-4">
+                        <!-- Subtotal -->
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Subtotal</span>
+                            <span class="font-medium text-gray-900" id="subtotal">Rs. 3,550</span>
+                        </div>
+                        
+                        <!-- Shipping -->
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Shipping</span>
+                            <span class="font-medium text-green-600" id="shipping">FREE</span>
+                        </div>
+                        
+                        <!-- Tax -->
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Tax</span>
+                            <span class="font-medium text-gray-900" id="tax">Rs. 0</span>
+                        </div>
+                        
+                        <!-- Divider -->
+                        <div class="border-t border-gray-200 pt-4"></div>
+                        
+                        <!-- Total -->
+                        <div class="flex justify-between">
+                            <span class="text-base font-semibold text-gray-900">Grand Total</span>
+                            <span class="text-xl font-bold text-gray-900" id="grandTotal">Rs. 3,550</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Promo Code -->
+                    <div class="px-6 pb-6">
+                        <label class="block text-sm font-medium text-gray-900 mb-2">Promo Code</label>
+                        <div class="flex space-x-2">
+                            <input type="text" placeholder="Enter code" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm">
+                            <button onclick="applyPromoCode()" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium transition-colors">
+                                Apply
+                            </button>
+                        </div>
+                        <p id="promoMessage" class="mt-2 text-sm hidden"></p>
+                    </div>
+                    
+                    <!-- Checkout Button -->
+                    <div class="px-6 pb-6">
+                        <button onclick="proceedToCheckout()" class="w-full flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-primary hover:bg-green-700 focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-200 transform hover:scale-[1.02]">
+                            Proceed to Checkout
+                        </button>
+                        
+                        <!-- Trust Badges -->
+                        <div class="mt-4 space-y-2 text-xs text-gray-500 text-center">
+                            <div class="flex items-center justify-center space-x-2">
+                                <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8.586 10l1.293 1.293a1 1 0 001.414-1.414l-2-2z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>Secure Checkout</span>
+                            </div>
+                            <div class="flex items-center justify-center space-x-2">
+                                <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8v4a2 2 0 002 2h4a2 2 0 002-2V8c0-.114-.07-.34-.433-.418zm-1.8 2.466V8.918a1.03 1.03 0 01-.01-.066c-.002-.01-.003-.018-.003-.027V8.82c0-.066.011-.133.028-.199.016-.066.042-.128.077-.185A.873.873 0 018.433 8.32c-.016-.065-.041-.127-.077-.184a.873.873 0 00-.138-.156.898.898 0 00-.162-.12.898.898 0 00-.162.12.873.873 0 00-.138.156c-.036.057-.061.119-.077.184a1.03 1.03 0 01-.028.199c-.002.009-.003.018-.003.027v.066a1.03 1.03 0 01.01.066 1.03 1.03 0 01-.01.066zm-2.466-2.466V8.918a1.03 1.03 0 01-.01-.066c-.002-.01-.003-.018-.003-.027V8.82c0-.066.011-.133.028-.199.016-.066.042-.128.077-.185A.873.873 0 014.433 8.32c-.016-.065-.041-.127-.077-.184a.873.873 0 00-.138-.156.898.898 0 00-.162-.12.898.898 0 00-.162.12.873.873 0 00-.138.156c-.036.057-.061.119-.077.184a1.03 1.03 0 01-.028.199c-.002.009-.003.018-.003.027v.066a1.03 1.03 0 01.01.066 1.03 1.03 0 01-.01.066z"></path>
+                                </svg>
+                                <span>COD Available</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Frequently Bought Together Section -->
+        <div class="mt-12">
+            <div class="bg-amber-50 rounded-xl p-8 border border-amber-200">
+                <h2 class="text-xl font-semibold text-gray-900 mb-6">Frequently Bought Together</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Product Card 1 -->
+                    <div class="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
+                        <img src="images/Dry Fruits Raisins (Black Seedless).png" alt="Black Raisins" class="w-full h-32 object-cover rounded-md mb-3">
+                        <h3 class="font-medium text-gray-900 text-sm mb-1">Black Raisins</h3>
+                        <p class="text-xs text-gray-500 mb-3">1kg</p>
+                        <p class="font-semibold text-gray-900 mb-3">Rs. 400</p>
+                        <button onclick="addToCart('raisins')" class="w-full px-3 py-2 bg-primary hover:bg-green-700 text-white text-sm font-medium rounded-lg transition-colors">
+                            Add to Cart
+                        </button>
+                    </div>
+                    
+                    <!-- Product Card 2 -->
+                    <div class="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
+                        <img src="images/Nuts without Shell Walnut Kernels.png" alt="Walnut Kernels" class="w-full h-32 object-cover rounded-md mb-3">
+                        <h3 class="font-medium text-gray-900 text-sm mb-1">Walnut Kernels</h3>
+                        <p class="text-xs text-gray-500 mb-3">500g</p>
+                        <p class="font-semibold text-gray-900 mb-3">Rs. 950</p>
+                        <button onclick="addToCart('walnuts')" class="w-full px-3 py-2 bg-primary hover:bg-green-700 text-white text-sm font-medium rounded-lg transition-colors">
+                            Add to Cart
+                        </button>
+                    </div>
+                    
+                    <!-- Product Card 3 -->
+                    <div class="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
+                        <img src="images/Dry Fruits Apricots (Turkish).png" alt="Turkish Apricots" class="w-full h-32 object-cover rounded-md mb-3">
+                        <h3 class="font-medium text-gray-900 text-sm mb-1">Turkish Apricots</h3>
+                        <p class="text-xs text-gray-500 mb-3">1kg</p>
+                        <p class="font-semibold text-gray-900 mb-3">Rs. 750</p>
+                        <button onclick="addToCart('apricots')" class="w-full px-3 py-2 bg-primary hover:bg-green-700 text-white text-sm font-medium rounded-lg transition-colors">
+                            Add to Cart
+                        </button>
+                    </div>
+                    
+                    <!-- Product Card 4 -->
+                    <div class="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
+                        <img src="images/Seeds & Cereals Chia Seeds.png" alt="Chia Seeds" class="w-full h-32 object-cover rounded-md mb-3">
+                        <h3 class="font-medium text-gray-900 text-sm mb-1">Chia Seeds</h3>
+                        <p class="text-xs text-gray-500 mb-3">500g</p>
+                        <p class="font-semibold text-gray-900 mb-3">Rs. 600</p>
+                        <button onclick="addToCart('chia')" class="w-full px-3 py-2 bg-primary hover:bg-green-700 text-white text-sm font-medium rounded-lg transition-colors">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        // Cart functionality
+        let cartItems = {
+            item1: { name: 'Premium Almonds', price: 850, quantity: 2, weight: '1kg' },
+            item2: { name: 'Premium Cashews (W240)', price: 1200, quantity: 1, weight: '500g' },
+            item3: { name: 'Pistachios (Salted)', price: 2500, quantity: 1, weight: '500g' }
+        };
+
+        function updateQuantity(itemId, change) {
+            const input = document.getElementById(`qty-${itemId}`);
+            const currentValue = parseInt(input.value) || 1;
+            const newValue = Math.max(1, Math.min(99, currentValue + change));
+            input.value = newValue;
+            
+            if (cartItems[itemId]) {
+                cartItems[itemId].quantity = newValue;
+                updateCartTotals();
+            }
+        }
+
+        function updateCartTotals() {
+            let subtotal = 0;
+            for (const itemId in cartItems) {
+                const item = cartItems[itemId];
+                subtotal += item.price * item.quantity;
+            }
+            
+            document.getElementById('subtotal').textContent = `Rs. ${subtotal.toLocaleString()}`;
+            document.getElementById('grandTotal').textContent = `Rs. ${subtotal.toLocaleString()}`;
+            
+            // Update cart count in header
+            const totalItems = Object.values(cartItems).reduce((sum, item) => sum + item.quantity, 0);
+            document.querySelectorAll('.cart-count').forEach(el => el.textContent = totalItems);
+        }
+
+        function applyPromoCode() {
+            const codeInput = document.querySelector('input[placeholder="Enter code"]');
+            const messageEl = document.getElementById('promoMessage');
+            const code = codeInput.value.trim().toUpperCase();
+            
+            if (code === 'SAVE10') {
+                messageEl.textContent = 'Promo code applied! 10% discount';
+                messageEl.className = 'mt-2 text-sm text-green-600';
+                messageEl.classList.remove('hidden');
+                codeInput.disabled = true;
+                // Apply discount logic here
+            } else if (code) {
+                messageEl.textContent = 'Invalid promo code';
+                messageEl.className = 'mt-2 text-sm text-red-600';
+                messageEl.classList.remove('hidden');
+            }
+        }
+
+        function addToCart(productId) {
+            // Add to cart logic here
+            console.log('Adding to cart:', productId);
+            // Show success message
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = 'Added!';
+            button.className = 'w-full px-3 py-2 bg-green-600 text-white text-sm font-medium rounded-lg';
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.className = 'w-full px-3 py-2 bg-primary hover:bg-green-700 text-white text-sm font-medium rounded-lg transition-colors';
+            }, 1500);
+        }
+
+        function proceedToCheckout() {
+            // Proceed to checkout logic
+            console.log('Proceeding to checkout');
+            
+            // Validate cart has items
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartEmpty = document.getElementById('cartEmpty');
+            
+            if (cartEmpty && cartEmpty.style.display !== 'none') {
+                alert('Your cart is empty. Please add items before proceeding to checkout.');
+                return;
+            }
+            
+            // Show loading state
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = 'Processing...';
+            button.disabled = true;
+            button.className = 'w-full flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-gray-400 bg-gray-200 cursor-not-allowed transition-all duration-200';
+            
+            // Simulate processing delay
+            setTimeout(() => {
+                // Show loading state
+                button.innerHTML = '<div class="flex items-center justify-center"><svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Processing...</div>';
+                button.textContent = originalText;
+                button.disabled = false;
+                button.className = 'w-full flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-primary hover:bg-green-700 focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-200 transform hover:scale-[1.02]';
+                
+                // Redirect to professional checkout page
+                window.location.href = 'checkout-professional.html';
+            }, 1500);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartTotals();
+        });
+    </script>
+</body>
+</html>

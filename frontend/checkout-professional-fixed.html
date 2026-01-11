@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Checkout | GBDRYFRUITS</title>
+    <meta name="description" content="Complete your dry fruits and nuts purchase with our secure professional checkout system. Multiple payment methods available.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AU4Hk1n6v6GjT3Q9ZfK1s1l-1w1tHzv&currency=PKR"></script>
+    
+    <style>
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+            background: linear-gradient(135deg, #FAF7F0 0%, #F5F0E6 100%);
+            font-size: 14px; /* Reduced from default 16px by ~12.5% */
+        }
+        
+        /* GLOBAL ICON CONSTRAINTS */
+        img, svg, i, .icon {
+            max-width: 24px !important;
+            height: auto !important;
+            width: auto !important;
+            object-fit: contain;
+        }
+
+        .brand-logo {
+            max-width: none !important;
+            height: 32px !important;
+            width: auto !important;
+        }
+
+        .media-large {
+            max-width: none !important;
+            width: 48px !important;
+            height: 48px !important;
+        }
+        
+        .icon-small {
+            max-width: 18px !important;
+            height: auto !important;
+        }
+        
+        .icon-large {
+            max-width: 32px !important;
+            height: auto !important;
+        }
+        
+        /* CHECKOUT STYLING */
+        .checkout-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 1024px) {
+            .checkout-grid {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+        
+        /* STEPS */
+        .steps-container {
+            margin-bottom: 3rem;
+        }
+        
+        .step-indicator {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 12px; /* Reduced from 14px */
+            transition: all 0.3s ease;
+        }
+        
+        .step-indicator.active {
+            background: linear-gradient(135deg, #2D5016 0%, #1a3408 100%);
+            box-shadow: 0 4px 12px rgba(45, 80, 22, 0.3);
+        }
+        
+        .step-line {
+            height: 2px;
+            background: #e5e7eb;
+            flex: 1;
+        }
+        
+        .step-line.active {
+            background: linear-gradient(90deg, #2D5016 0%, #27AE60 100%);
+        }
+        
+        /* CARDS */
+        .checkout-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            padding: 2rem;
+        }
+        
+        .sticky-summary {
+            position: sticky;
+            top: 2rem;
+        }
+        
+        /* FORMS */
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #2D5016;
+            box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.1);
+        }
+        
+        /* BUTTONS */
+        .btn-primary {
+            background: linear-gradient(135deg, #2D5016 0%, #1a3408 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(45, 80, 22, 0.25);
+        }
+        
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #4b5563;
+            padding: 12px 24px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: #e5e7eb;
+            color: #374151;
+        }
+        
+        /* PAYMENT OPTIONS */
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .payment-option {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+        
+        .payment-option:hover {
+            border-color: #2D5016;
+            box-shadow: 0 8px 25px rgba(45, 80, 22, 0.15);
+        }
+        
+        .payment-option.selected {
+            border-color: #2D5016;
+            background: rgba(45, 80, 22, 0.05);
+        }
+        
+        .payment-icon {
+            width: 40px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* MODALS */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 90vh;
+            overflow-y: auto;
+            max-height: 90vh;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .checkout-container {
+                padding: 1rem 0.5rem;
+            }
+            
+            .payment-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .checkout-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Professional Header -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-2xl font-bold text-green-700">GBDRYFRUITS</a>
+                    <span class="text-gray-400">| Professional Checkout</span>
+                </div>
+                <nav class="flex space-x-6">
+                    <a href="index.html" class="text-gray-600 hover:text-green-700">← Back to Store</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="checkout-container">
+        <!-- Steps Container -->
+        <div class="steps-container">
+            <div class="flex items-center justify-center space-x-4 mb-8">
+                <!-- Step 1 -->
+                <div class="flex items-center">
+                    <div class="step-indicator active" id="step1">1</div>
+                    <div class="ml-3">
+                        <h3 class="font-semibold text-gray-900">Shipping</h3>
+                        <p class="text-sm text-gray-600">Enter your delivery information</p>
+                    </div>
+                </div>
+                
+                <!-- Step Line -->
+                <div class="step-line active"></div>
+                
+                <!-- Step 2 -->
+                <div class="flex items-center">
+                    <div class="step-indicator" id="step2">2</div>
+                    <div class="ml-3">
+                        <h3 class="font-semibold text-gray-900">Payment</h3>
+                        <p class="text-sm text-gray-600">Choose your payment method</p>
+                    </div>
+                </div>
+                
+                <!-- Step Line -->
+                <div class="step-line"></div>
+                
+                <!-- Step 3 -->
+                <div class="flex items-center">
+                    <div class="step-indicator" id="step3">3</div>
+                    <div class="ml-3">
+                        <h3 class="font-semibold text-gray-900">Review</h3>
+                        <p class="text-sm text-gray-600">Confirm your order details</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checkout Grid -->
+        <div class="checkout-grid">
+            <!-- Left Column: Multi-Step Form -->
+            <div>
+                <!-- Step 1: Shipping -->
+                <div id="shippingStep" class="checkout-card">
+                    <h2 class="text-xl font-bold text-gray-900 mb-6">Shipping Information</h2>
+                    
+                    <form id="shippingForm" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                                <input type="text" name="firstName" required class="form-input" placeholder="John">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                                <input type="text" name="lastName" required class="form-input" placeholder="Doe">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                                <input type="email" name="email" required class="form-input" placeholder="munashirmehdi@mail.com">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                                <input type="tel" name="phone" required class="form-input" placeholder="+92 311 518 9291">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Street Address</label>
+                            <input type="text" name="address" required class="form-input" placeholder="123 Main Street">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">City</label>
+                                <input type="text" name="city" required class="form-input" placeholder="Karachi">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Postal Code</label>
+                                <input type="text" name="postalCode" required class="form-input" placeholder="75000">
+                            </div>
+                        </div>
+                        <div class="flex justify-end mt-8">
+                            <button type="button" onclick="proceedToPayment()" class="btn-primary">
+                                Continue to Payment →
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Step 2: Payment (Hidden Initially) -->
+                <div id="paymentStep" class="checkout-card hidden">
+                    <h2 class="text-xl font-bold text-gray-900 mb-6">Choose Payment Method</h2>
+                    
+                    <div class="space-y-8">
+                        <!-- Cash on Delivery -->
+                        <div class="payment-option" onclick="selectPaymentMethod('cod')">
+                            <div class="payment-icon">
+                                <span class="text-2xl">💵</span>
+                            </div>
+                            <div class="mt-4">
+                                <h3 class="font-bold text-gray-900">Cash on Delivery</h3>
+                                <p class="text-sm text-gray-600">Pay when you receive your order</p>
+                                <div class="flex items-center mt-2">
+                                    <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8.586 10l1.293 1.293a1 1 0 001.414-1.414l-2-2z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-sm font-medium text-green-600">Available in your city</span>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-2xl font-bold text-orange-600">+Rs. 250</span>
+                            </div>
+                        </div>
+
+                        <!-- Pakistani Digital Wallets -->
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Pakistani Digital Wallets</h3>
+                            <div class="payment-options">
+                                <div class="payment-option" onclick="selectPaymentMethod('jazzcash')">
+                                    <div class="payment-icon bg-blue-600">
+                                        <span class="text-white font-bold">JC</span>
+                                    </div>
+                                    <div class="mt-3">
+                                        <h4 class="font-semibold text-gray-900">JazzCash</h4>
+                                        <p class="text-sm text-gray-600">Instant payment</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="payment-option" onclick="selectPaymentMethod('easypaisa')">
+                                    <div class="payment-icon bg-green-600">
+                                        <span class="text-white font-bold">EP</span>
+                                    </div>
+                                    <div class="mt-3">
+                                        <h4 class="font-semibold text-gray-900">EasyPaisa</h4>
+                                        <p class="text-sm text-gray-600">Quick & easy</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="payment-option" onclick="selectPaymentMethod('meezan')">
+                                    <div class="payment-icon bg-indigo-600">
+                                        <span class="text-white font-bold">MZ</span>
+                                    </div>
+                                    <div class="mt-3">
+                                        <h4 class="font-semibold text-gray-900">Meezan Bank</h4>
+                                        <p class="text-sm text-gray-600">Islamic banking</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- International Cards -->
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">International Cards</h3>
+                            <div class="payment-options">
+                                <div class="payment-option" onclick="selectPaymentMethod('visa')">
+                                    <div class="payment-icon bg-blue-700">
+                                        <span class="text-white font-bold">VISA</span>
+                                    </div>
+                                    <div class="mt-3">
+                                        <h4 class="font-semibold text-gray-900">Visa Card</h4>
+                                        <p class="text-sm text-gray-600">Debit/Credit</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="payment-option" onclick="selectPaymentMethod('mastercard')">
+                                    <div class="payment-icon bg-red-600">
+                                        <span class="text-white font-bold">MC</span>
+                                    </div>
+                                    <div class="mt-3">
+                                        <h4 class="font-semibold text-gray-900">MasterCard</h4>
+                                        <p class="text-sm text-gray-600">Debit/Credit</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="payment-option" onclick="selectPaymentMethod('unionpay')">
+                                    <div class="payment-icon bg-red-700">
+                                        <span class="text-white font-bold">UP</span>
+                                    </div>
+                                    <div class="mt-3">
+                                        <h4 class="font-semibold text-gray-900">UnionPay</h4>
+                                        <p class="text-sm text-gray-600">International cards</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="payment-option" onclick="selectPaymentMethod('bank-transfer')">
+                                    <div class="payment-icon bg-gray-700">
+                                        <span class="text-white font-bold">BT</span>
+                                    </div>
+                                    <div class="mt-3">
+                                        <h4 class="font-semibold text-gray-900">Bank Transfer</h4>
+                                        <p class="text-sm text-gray-600">Direct deposit</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between mt-8" id="paymentButtons" style="display: none;">
+                        <button type="button" onclick="goBackToShipping()" class="btn-secondary">
+                            ← Back to Shipping
+                        </button>
+                        <button type="button" onclick="proceedToReview()" class="btn-primary">
+                            Continue to Review →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Review (Hidden Initially) -->
+                <div id="reviewStep" class="checkout-card hidden">
+                    <h2 class="text-xl font-bold text-gray-900 mb-6">Review Your Order</h2>
+                    
+                    <div class="space-y-6">
+                        <!-- Order Items -->
+                        <div class="border border-gray-200 rounded-lg p-6">
+                            <h3 class="font-semibold text-gray-900 mb-4">Order Summary</h3>
+                            <div id="reviewOrderItems" class="space-y-3">
+                                <!-- Order items will be inserted here -->
+                            </div>
+                        </div>
+                        
+                        <!-- Shipping Details -->
+                        <div class="border border-gray-200 rounded-lg p-6">
+                            <h3 class="font-semibold text-gray-900 mb-4">Shipping Details</h3>
+                            <div id="reviewShippingDetails" class="space-y-2 text-sm">
+                                <!-- Shipping details will be inserted here -->
+                            </div>
+                        </div>
+                        
+                        <!-- Trust Badges -->
+                        <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                            <div class="flex items-center justify-center space-x-6 text-sm">
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8.586 10l1.293 1.293a1 1 0 001.414-1.414l-2-2z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="font-medium text-green-600">256-bit SSL Encryption</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                                        <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 1 1 0 011 1v8a2 2 0 01-2 2H6a2 2 0 01-2-2V5a3 3 0 013-3h4a3 3 0 013 3v8a3 3 0 01-3 3H6a3 3 0 01-3-3V5z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="font-medium text-green-600">Fraud Protection</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M2 6a2 2 0 012-2 1 1 0 011 1v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/>
+                                    </svg>
+                                    <span class="font-medium text-green-600">Money Back Guarantee</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between mt-8">
+                            <button type="button" onclick="goBackToPayment()" class="btn-secondary">
+                                ← Back to Payment
+                            </button>
+                            <button type="button" onclick="placeOrder()" class="btn-primary">
+                                Place Order ✓
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Order Summary -->
+            <div class="sticky-summary">
+                <div class="checkout-card p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-6">Order Summary</h3>
+                    
+                    <!-- Cart Items Summary -->
+                    <div id="sidebarOrderItems" class="space-y-4 mb-6">
+                        <!-- Order items will be inserted here -->
+                    </div>
+                    
+                    <!-- Price Breakdown -->
+                    <div class="border-t border-gray-200 pt-4 space-y-3">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Subtotal</span>
+                            <span class="font-medium" id="sidebarSubtotal">Rs. 0</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Shipping</span>
+                            <span class="font-medium text-gray-600" id="sidebarShipping">Select Payment Method</span>
+                        </div>
+                        <div class="flex justify-between text-sm" id="discountRow" style="display: none;">
+                            <span class="text-gray-600">Discount</span>
+                            <span class="font-medium text-red-600" id="sidebarDiscount">-Rs. 0</span>
+                        </div>
+                        <div class="border-t border-gray-200 pt-3">
+                            <div class="flex justify-between">
+                                <span class="text-lg font-bold text-gray-900">Total</span>
+                                <span class="text-lg font-bold text-green-600" id="sidebarTotal">Rs. 0</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Continue to Review Button (Hidden Initially) -->
+                    <div class="mt-6" id="sidebarContinueButton" style="display: none;">
+                        <button type="button" onclick="proceedToReview()" class="w-full btn-primary">
+                            Continue to Review →
+                        </button>
+                    </div>
+                    
+                    <!-- Place Order Button (Hidden Initially) -->
+                    <div class="mt-4" id="sidebarPlaceOrderButton" style="display: none;">
+                        <button type="button" onclick="placeOrder()" class="w-full btn-primary">
+                            Place Order
+                        </button>
+                    </div>
+                    
+                    <!-- Trust Indicators -->
+                    <div class="mt-6 space-y-3">
+                        <div class="flex items-center justify-center text-xs text-gray-600">
+                            <svg class="w-4 h-4 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0h2a1 1 0 100-2H5a5 5 0 0110 0v2a2 2 0 01-2 2H5a2 2 0 01-2-2z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>Secure SSL Certificate</span>
+                        </div>
+                        <div class="flex items-center justify-center text-xs text-gray-600">
+                            <svg class="w-4 h-4 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 000-3 0z"/>
+                            </svg>
+                            <span>Verified Merchant</span>
+                        </div>
+                        <div class="flex items-center justify-center text-xs text-gray-600">
+                            <svg class="w-4 h-4 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M4 4a2 2 0 012-2 1 1 0 011 1V8a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/>
+                            </svg>
+                            <span>Cash on Delivery</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="container mx-auto px-4 py-6">
+            <div class="text-center text-sm text-gray-600">
+                <p>&copy; 2024 GB Dry Fruits. All rights reserved.</p>
+                <div class="flex items-center justify-center space-x-4 mt-2">
+                    <span>Owner: Mubashir Mehdi</span>
+                    <span>•</span>
+                    <span>Email: munashirmehdi@mail.com</span>
+                    <span>•</span>
+                    <span>Phone: +923115189291</span>
+                </div>
+                <div class="flex items-center justify-center space-x-4 mt-2">
+                    <span>Meezan Bank Account: 03810104256225</span>
+                    <span>•</span>
+                    <span>WhatsApp: +923115189291</span>
+                </div>
+                <div class="flex items-center justify-center space-x-4 mt-2">
+                    <span>Powered by Secure Payment Gateway</span>
+                    <span>•</span>
+                    <span>256-bit SSL Encryption</span>
+                    <span>•</span>
+                    <span>Fraud Protection</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="modal-overlay" style="display: none;">
+        <div class="modal-content" style="max-width: 400px; text-align: center;">
+            <div class="w-12 h-12 border-4 border-green-600 border-t-transparent rounded-full animate-spin" style="margin: 0 auto 2rem;"></div>
+            <p class="text-gray-700 font-medium">Processing your payment...</p>
+            <p class="text-sm text-gray-500">Please do not close this window</p>
+        </div>
+    </div>
+
+    <!-- Bank Transfer Details Modal -->
+    <div id="bankTransferModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">INSTRUCTIONS FOR BANK TRANSFER:</h3>
+            <p class="text-sm text-gray-600 mb-4">Please transfer/deposit order amount to the following bank account and WhatsApp or E-mail the transaction screenshot to confirm your order.</p>
+            
+            <div class="bg-gray-50 p-4 rounded-lg space-y-2 mb-4">
+                <p class="text-sm text-gray-800 font-semibold">WhatsApp: +92 311 518 9291</p>
+                <p class="text-sm text-gray-800 font-semibold">E-mail: munashirmehdi@mail.com</p>
+            </div>
+            
+            <div class="border-t border-b border-gray-300 py-4 my-4">
+                <div class="space-y-2">
+                    <p class="text-sm text-gray-800 font-bold text-lg">GBDRYFRUITS</p>
+                    <p class="text-sm text-gray-600"><strong>Bank Name:</strong> Meezan Bank</p>
+                    <p class="text-sm text-gray-600"><strong>Account Title:</strong> Mubashir Mehdi</p>
+                    <p class="text-sm text-gray-600"><strong>Account Number:</strong> 03810104256225</p>
+                    <p class="text-sm text-gray-600"><strong>IBAN Number:</strong> PK45MEZN0001234567890123</p>
+                    <p class="text-sm text-gray-600"><strong>Branch Code:</strong> 0381</p>
+                </div>
+            </div>
+            
+            <div class="bg-yellow-50 border border-yellow-200 p-3 rounded-lg">
+                <p class="text-sm text-yellow-800"><strong>Note:</strong> Your order will be processed after payment confirmation. Thanks</p>
+            </div>
+            
+            <div class="flex justify-end mt-6 space-x-3">
+                <button onclick="closeBankTransferModal()" class="btn-secondary">Close</button>
+                <button onclick="confirmBankTransfer()" class="btn-primary">Continue to Review →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JazzCash Payment Modal -->
+    <div id="jazzcashModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h3 class="text-lg font-bold text-gray-900 mb-3">INSTRUCTIONS FOR JAZZCASH PAYMENT:</h3>
+            <p class="text-sm text-gray-600 mb-3">Please transfer order amount via JazzCash and WhatsApp or E-mail the transaction screenshot to confirm your order.</p>
+            
+            <div class="bg-gray-50 p-3 rounded-lg space-y-2 mb-3">
+                <p class="text-sm text-gray-800 font-semibold">WhatsApp: +92 311 518 9291</p>
+                <p class="text-sm text-gray-800 font-semibold">E-mail: munashirmehdi@mail.com</p>
+            </div>
+            
+            <div class="border-t border-b border-gray-300 py-3 my-3">
+                <div class="space-y-2">
+                    <p class="text-sm text-gray-800 font-bold">GBDRYFRUITS</p>
+                    <p class="text-sm text-gray-600"><strong>JazzCash Account:</strong> 03115189291</p>
+                    <p class="text-sm text-gray-600"><strong>Account Name:</strong> Mubashir Mehdi</p>
+                    <p class="text-sm text-gray-600"><strong>Amount:</strong> <span id="jazzcashAmount">Rs. 0</span></p>
+                </div>
+            </div>
+            
+            <div class="bg-blue-50 border border-blue-200 p-3 rounded-lg mb-3">
+                <p class="text-sm text-blue-800"><strong>How to pay:</strong></p>
+                <ol class="text-sm text-blue-700 mt-2 space-y-1">
+                    <li>1. Open your JazzCash app</li>
+                    <li>2. Select "Send Money"</li>
+                    <li>3. Enter number: 03115189291</li>
+                    <li>4. Enter amount and send</li>
+                    <li>5. Screenshot the transaction</li>
+                </ol>
+            </div>
+            
+            <div class="bg-yellow-50 border border-yellow-200 p-3 rounded-lg mb-4">
+                <p class="text-sm text-yellow-800"><strong>Note:</strong> Your order will be processed after payment confirmation. Thanks</p>
+            </div>
+            
+            <div class="flex justify-end space-x-3">
+                <button onclick="closeJazzcashModal()" class="btn-secondary">Close</button>
+                <button onclick="confirmJazzcash()" class="btn-primary">Continue to Review →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- EasyPaisa Payment Modal -->
+    <div id="easypaisaModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h3 class="text-lg font-bold text-gray-900 mb-3">INSTRUCTIONS FOR EASYPAYSA PAYMENT:</h3>
+            <p class="text-sm text-gray-600 mb-3">Please transfer order amount via EasyPaisa and WhatsApp or E-mail the transaction screenshot to confirm your order.</p>
+            
+            <div class="bg-gray-50 p-3 rounded-lg space-y-2 mb-3">
+                <p class="text-sm text-gray-800 font-semibold">WhatsApp: +92 311 518 9291</p>
+                <p class="text-sm text-gray-800 font-semibold">E-mail: munashirmehdi@mail.com</p>
+            </div>
+            
+            <div class="border-t border-b border-gray-300 py-3 my-3">
+                <div class="space-y-2">
+                    <p class="text-sm text-gray-800 font-bold">GBDRYFRUITS</p>
+                    <p class="text-sm text-gray-600"><strong>EasyPaisa Account:</strong> 03115189291</p>
+                    <p class="text-sm text-gray-600"><strong>Account Name:</strong> Mubashir Mehdi</p>
+                    <p class="text-sm text-gray-600"><strong>Amount:</strong> <span id="easypaisaAmount">Rs. 0</span></p>
+                </div>
+            </div>
+            
+            <div class="bg-green-50 border border-green-200 p-3 rounded-lg mb-3">
+                <p class="text-sm text-green-800"><strong>How to pay:</strong></p>
+                <ol class="text-sm text-green-700 mt-2 space-y-1">
+                    <li>1. Open your EasyPaisa app</li>
+                    <li>2. Select "Send Money"</li>
+                    <li>3. Enter number: 03115189291</li>
+                    <li>4. Enter amount and send</li>
+                    <li>5. Screenshot the transaction</li>
+                </ol>
+            </div>
+            
+            <div class="bg-yellow-50 border border-yellow-200 p-3 rounded-lg mb-4">
+                <p class="text-sm text-yellow-800"><strong>Note:</strong> Your order will be processed after payment confirmation. Thanks</p>
+            </div>
+            
+            <div class="flex justify-end space-x-3">
+                <button onclick="closeEasypaisaModal()" class="btn-secondary">Close</button>
+                <button onclick="confirmEasypaisa()" class="btn-primary">Continue to Review →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Meezan Bank Payment Modal -->
+    <div id="meezanModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">Meezan Bank Payment</h3>
+            <div class="bg-indigo-50 p-4 rounded-lg space-y-2">
+                <p class="text-sm text-gray-600"><strong>Bank:</strong> Meezan Bank</p>
+                <p class="text-sm text-gray-600"><strong>Account Title:</strong> Mubashir Mehdi</p>
+                <p class="text-sm text-gray-600"><strong>Account Number:</strong> 03810104256225</p>
+                <p class="text-sm text-gray-600"><strong>Branch Code:</strong> 0123</p>
+                <p class="text-sm text-gray-600"><strong>IBAN:</strong> PK45MEZN0001234567890123</p>
+            </div>
+            <div class="bg-yellow-50 border border-yellow-200 p-3 rounded-lg mt-4">
+                <p class="text-sm text-yellow-800"><strong>Payment Methods:</strong></p>
+                <ul class="text-sm text-yellow-700 mt-2 space-y-1">
+                    <li>• Meezan Bank Mobile App</li>
+                    <li>• Internet Banking</li>
+                    <li>• ATM Transfer</li>
+                    <li>• Bank Branch Deposit</li>
+                </ul>
+            </div>
+            <div class="flex justify-end mt-6 space-x-3">
+                <button onclick="closeMeezanModal()" class="btn-secondary">Close</button>
+                <button onclick="confirmMeezan()" class="btn-primary">I've Sent Payment</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- COD Charge Modal -->
+    <div id="codModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">Cash on Delivery - Additional Charge</h3>
+            <div class="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
+                <p class="text-sm text-yellow-800"><strong>Important Information:</strong></p>
+                <p class="text-sm text-yellow-700 mt-2">When selecting the Cash on Delivery payment method, please note that an additional cost of Rs. 250 will be added to your order total. This charge covers handling and secure delivery processing.</p>
+                <p class="text-sm text-yellow-700 mt-2">Please contact us if you have any questions about this charge:</p>
+                <div class="mt-3 space-y-1">
+                    <p class="text-sm text-yellow-800"><strong>WhatsApp:</strong> +92 311 518 9291</p>
+                    <p class="text-sm text-yellow-800"><strong>Email:</strong> munashirmehdi@mail.com</p>
+                </div>
+            </div>
+            <div class="mt-4">
+                <p class="text-gray-600"><strong>Additional Charge:</strong> Rs. 250</p>
+                <p class="text-gray-600"><strong>New Total:</strong> <span id="codNewTotal">Rs. 0</span></p>
+            </div>
+            <div class="flex justify-end mt-6 space-x-3">
+                <button onclick="closeCodModal()" class="btn-secondary">Choose Another Method</button>
+                <button onclick="confirmCod()" class="btn-primary">Accept & Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Confirmation Modal -->
+    <div id="paymentConfirmationModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">Payment Confirmation</h3>
+            <div class="bg-green-50 border border-green-200 p-4 rounded-lg mb-4">
+                <p class="text-sm text-green-800"><strong>Payment Method:</strong> <span id="confirmPaymentMethod">Bank Transfer</span></p>
+                <p class="text-sm text-green-800"><strong>Amount:</strong> <span id="confirmAmount">Rs. 0</span></p>
+                <p class="text-sm text-green-700 mt-2">Your payment has been initiated. Please complete the payment process and we will confirm your order shortly.</p>
+            </div>
+            <div class="flex justify-end mt-6 space-x-3">
+                <button onclick="closePaymentConfirmation()" class="btn-secondary">Cancel</button>
+                <button onclick="confirmPayment()" class="btn-primary">Confirm Payment Sent</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content" style="text-align: center;">
+            <div class="mb-4">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8.586 10l1.293 1.293a1 1 0 001.414-1.414l-2-2z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Order Placed Successfully!</h3>
+            <p class="text-gray-600 mb-4">Thank you for your order. Your order has been received and will be processed shortly.</p>
+            <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                <p class="text-sm text-gray-800"><strong>Order Number:</strong> <span id="orderNumber">#GBDRY-000000</span></p>
+                <p class="text-sm text-gray-600">You will receive an email confirmation shortly with your order details and tracking information.</p>
+            </div>
+            <div class="flex justify-end">
+                <button onclick="closeSuccessModal()" class="w-full px-4 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-colors">
+                    Continue Shopping
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize orderData at the very top
+        let orderData = {
+            shipping: {},
+            items: [],
+            totals: {
+                subtotal: 0,
+                shipping: 0,
+                total: 0
+            },
+            payment: {
+                method: null
+            }
+        };
+
+        let selectedPaymentMethod = null;
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCartData();
+        });
+
+        // Load cart data from localStorage
+        function loadCartData() {
+            const cartData = localStorage.getItem('premiumCart');
+            if (cartData) {
+                const cart = JSON.parse(cartData);
+                if (cart && cart.items && cart.items.length > 0) {
+                    // Set items
+                    orderData.items = cart.items;
+                    
+                    // Calculate totals
+                    const subtotal = cart.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                    orderData.totals.subtotal = subtotal;
+                    orderData.totals.total = subtotal;
+                    
+                    // Update UI
+                    updateOrderItemsDisplay();
+                    updateSidebarDisplay();
+                }
+            }
+        }
+
+        // Update order items display
+        function updateOrderItemsDisplay() {
+            const itemsContainer = document.getElementById('sidebarOrderItems');
+            const reviewItemsContainer = document.getElementById('reviewOrderItems');
+            
+            if (orderData.items.length === 0) return;
+            
+            let itemsHTML = '';
+            let reviewItemsHTML = '';
+            
+            orderData.items.forEach(item => {
+                itemsHTML += `
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100">
+                        <div class="flex items-center space-x-3">
+                            <img src="${item.image}" alt="${item.name}" class="w-12 h-12 object-cover rounded">
+                            <div>
+                                <h4 class="font-medium text-gray-900">${item.name}</h4>
+                                <p class="text-sm text-gray-600">${item.weight || ''}</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-medium text-gray-900">Rs. ${item.price.toLocaleString()}</span>
+                            <span class="text-sm text-gray-600">× ${item.quantity}</span>
+                        </div>
+                    </div>
+                `;
+                
+                reviewItemsHTML += `
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100">
+                        <div class="flex items-center space-x-3">
+                            <img src="${item.image}" alt="${item.name}" class="w-12 h-12 object-cover rounded">
+                            <div>
+                                <h4 class="font-medium text-gray-900">${item.name}</h4>
+                                <p class="text-sm text-gray-600">${item.weight || ''}</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-medium text-gray-900">Rs. ${item.price.toLocaleString()}</span>
+                            <span class="text-sm text-gray-600">× ${item.quantity}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            itemsContainer.innerHTML = itemsHTML;
+            reviewItemsContainer.innerHTML = reviewItemsHTML;
+        }
+
+        // Update sidebar display
+        function updateSidebarDisplay() {
+            document.getElementById('sidebarSubtotal').textContent = 'Rs. ' + orderData.totals.subtotal.toLocaleString();
+            document.getElementById('sidebarTotal').textContent = 'Rs. ' + orderData.totals.total.toLocaleString();
+        }
+
+        // Navigation functions
+        function updateStep(step) {
+            // Update step indicators
+            document.querySelectorAll('.step-indicator').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.step-line').forEach(el => el.classList.remove('active'));
+            
+            // Activate current step
+            document.getElementById('step' + step).classList.add('active');
+            
+            // Activate step lines up to current step
+            for (let i = 1; i < step; i++) {
+                document.querySelectorAll('.step-line')[i-1]?.classList.add('active');
+            }
+        }
+
+        function proceedToPayment() {
+            // Validate shipping form
+            const form = document.getElementById('shippingForm');
+            const formData = new FormData(form);
+            
+            orderData.shipping = {
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                address: formData.get('address'),
+                city: formData.get('city'),
+                postalCode: formData.get('postalCode')
+            };
+            
+            // Update step indicators
+            updateStep(2);
+            
+            // Show payment step, hide shipping step
+            document.getElementById('shippingStep').classList.add('hidden');
+            document.getElementById('paymentStep').classList.remove('hidden');
+        }
+
+        // Select payment method
+        function selectPaymentMethod(method) {
+            selectedPaymentMethod = method;
+            
+            // Update UI
+            document.querySelectorAll('.payment-option').forEach(el => {
+                el.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            
+            // Update shipping based on payment method
+            updateShippingDisplay(method);
+            
+            // Show Continue to Review button in sidebar immediately
+            document.getElementById('sidebarContinueButton').style.display = 'block';
+            
+            // Show appropriate payment modal
+            if (method === 'bank-transfer') {
+                showBankTransferModal();
+            } else if (method === 'jazzcash') {
+                showJazzcashModal();
+            } else if (method === 'easypaisa') {
+                showEasypaisaModal();
+            } else if (method === 'meezan') {
+                showMeezanModal();
+            } else if (method === 'cod') {
+                showCodModal();
+            }
+        }
+
+        // Update shipping display based on payment method
+        function updateShippingDisplay(paymentMethod) {
+            const shippingElement = document.getElementById('sidebarShipping');
+            const totalElement = document.getElementById('sidebarTotal');
+            const subtotalElement = document.getElementById('sidebarSubtotal');
+            const sidebarContinueButton = document.getElementById('sidebarContinueButton');
+            
+            // Get current subtotal from displayed value
+            const subtotalText = subtotalElement.textContent || 'Rs. 0';
+            const currentSubtotal = parseFloat(subtotalText.replace('Rs. ', '').replace(',', '')) || 0;
+            
+            let shippingCost = 0;
+            let shippingText = '';
+            let shippingColor = '';
+            
+            switch(paymentMethod) {
+                case 'cod':
+                    shippingCost = 250;
+                    shippingText = 'Rs. 250';
+                    shippingColor = 'text-orange-600';
+                    break;
+                case 'bank-transfer':
+                case 'jazzcash':
+                case 'easypaisa':
+                case 'meezan':
+                    shippingCost = 0;
+                    shippingText = 'FREE';
+                    shippingColor = 'text-green-600';
+                    break;
+                default:
+                    shippingText = 'Select Payment Method';
+                    shippingColor = 'text-gray-600';
+                    sidebarContinueButton.style.display = 'none';
+                    return;
+            }
+            
+            // Update shipping display
+            shippingElement.textContent = shippingText;
+            shippingElement.className = `font-medium ${shippingColor}`;
+            
+            // Update total
+            const newTotal = currentSubtotal + shippingCost;
+            totalElement.textContent = 'Rs. ' + newTotal;
+            
+            // Update order data
+            if (orderData.totals) {
+                orderData.totals.shipping = shippingCost;
+                orderData.totals.total = newTotal;
+            }
+            
+            // Show Continue to Review button in sidebar
+            sidebarContinueButton.style.display = 'block';
+        }
+
+        // Proceed to review
+        function proceedToReview() {
+            if (!selectedPaymentMethod) {
+                alert('Please select a payment method');
+                return;
+            }
+            
+            orderData.payment.method = selectedPaymentMethod;
+            
+            // Update step indicators
+            updateStep(3);
+            
+            // Show review step, hide payment step
+            document.getElementById('paymentStep').classList.add('hidden');
+            document.getElementById('reviewStep').classList.remove('hidden');
+            
+            // Update sidebar buttons: hide Continue to Review, show Place Order
+            document.getElementById('sidebarContinueButton').style.display = 'none';
+            document.getElementById('sidebarPlaceOrderButton').style.display = 'block';
+            
+            // Update review sections
+            updateReviewSections();
+        }
+
+        // Update review sections
+        function updateReviewSections() {
+            // Update shipping details
+            const shippingHtml = `
+                <p><strong>Name:</strong> ${orderData.shipping.firstName} ${orderData.shipping.lastName}</p>
+                <p><strong>Email:</strong> ${orderData.shipping.email}</p>
+                <p><strong>Phone:</strong> ${orderData.shipping.phone}</p>
+                <p><strong>Address:</strong> ${orderData.shipping.address}</p>
+                <p><strong>City:</strong> ${orderData.shipping.city}</p>
+                <p><strong>Postal Code:</strong> ${orderData.shipping.postalCode}</p>
+            `;
+            document.getElementById('reviewShippingDetails').innerHTML = shippingHtml;
+        }
+
+        // Navigation functions
+        function goBackToShipping() {
+            updateStep(1);
+            document.getElementById('paymentStep').classList.add('hidden');
+            document.getElementById('shippingStep').classList.remove('hidden');
+        }
+
+        function goBackToPayment() {
+            updateStep(2);
+            document.getElementById('reviewStep').classList.add('hidden');
+            document.getElementById('paymentStep').classList.remove('hidden');
+        }
+
+        // Modal functions
+        function showBankTransferModal() {
+            document.getElementById('bankTransferModal').style.display = 'flex';
+        }
+
+        function closeBankTransferModal() {
+            document.getElementById('bankTransferModal').style.display = 'none';
+        }
+
+        function confirmBankTransfer() {
+            closeBankTransferModal();
+            showPaymentConfirmation('Bank Transfer');
+        }
+
+        function showJazzcashModal() {
+            document.getElementById('jazzcashAmount').textContent = 'Rs. ' + orderData.totals.total;
+            document.getElementById('jazzcashModal').style.display = 'flex';
+        }
+
+        function closeJazzcashModal() {
+            document.getElementById('jazzcashModal').style.display = 'none';
+        }
+
+        function confirmJazzcash() {
+            closeJazzcashModal();
+            showPaymentConfirmation('JazzCash');
+        }
+
+        function showEasypaisaModal() {
+            document.getElementById('easypaisaAmount').textContent = 'Rs. ' + orderData.totals.total;
+            document.getElementById('easypaisaModal').style.display = 'flex';
+        }
+
+        function closeEasypaisaModal() {
+            document.getElementById('easypaisaModal').style.display = 'none';
+        }
+
+        function confirmEasypaisa() {
+            closeEasypaisaModal();
+            showPaymentConfirmation('EasyPaisa');
+        }
+
+        function showMeezanModal() {
+            document.getElementById('meezanModal').style.display = 'flex';
+        }
+
+        function closeMeezanModal() {
+            document.getElementById('meezanModal').style.display = 'none';
+        }
+
+        function confirmMeezan() {
+            closeMeezanModal();
+            showPaymentConfirmation('Meezan Bank');
+        }
+
+        function showCodModal() {
+            const currentTotal = orderData.totals.total;
+            const newTotal = currentTotal + 250;
+            document.getElementById('codNewTotal').textContent = 'Rs. ' + newTotal;
+            document.getElementById('codModal').style.display = 'flex';
+        }
+
+        function closeCodModal() {
+            document.getElementById('codModal').style.display = 'none';
+        }
+
+        function confirmCod() {
+            closeCodModal();
+            // Add COD charge to order total
+            orderData.totals.total += 250;
+            orderData.totals.shipping = (orderData.totals.shipping || 0) + 250;
+            
+            // Update shipping display in sidebar
+            document.getElementById('sidebarShipping').textContent = 'Rs. 250';
+            document.getElementById('sidebarShipping').classList.remove('text-green-600');
+            document.getElementById('sidebarShipping').classList.add('text-orange-600');
+            
+            // Update total display
+            document.getElementById('sidebarTotal').textContent = 'Rs. ' + orderData.totals.total;
+            
+            proceedToReview();
+        }
+
+        function showPaymentConfirmation(method) {
+            document.getElementById('confirmPaymentMethod').textContent = method;
+            document.getElementById('confirmAmount').textContent = 'Rs. ' + orderData.totals.total;
+            document.getElementById('paymentConfirmationModal').style.display = 'flex';
+        }
+
+        function closePaymentConfirmation() {
+            document.getElementById('paymentConfirmationModal').style.display = 'none';
+        }
+
+        function confirmPayment() {
+            closePaymentConfirmation();
+            placeOrder();
+        }
+
+        // Place order
+        async function placeOrder() {
+            showLoading();
+            
+            try {
+                console.log('Starting order placement...');
+                console.log('Order data:', orderData);
+                
+                // Try backend first, fallback to localStorage if backend is not available
+                let backendAvailable = false;
+                const userToken = localStorage.getItem('token');
+                
+                try {
+                    // Test if backend is available
+                    const testResponse = await fetch('http://localhost:5000/health');
+                    backendAvailable = testResponse.ok;
+                } catch (error) {
+                    console.log('Backend not available, using localStorage fallback');
+                }
+                
+                if (backendAvailable) {
+                    // Backend is available, try to create order
+                    // Prepare order data for backend
+                    const orderPayload = {
+                        orderItems: orderData.items.map(item => ({
+                            name: item.name,
+                            quantity: item.quantity,
+                            price: item.price
+                        })),
+                        customer: {
+                            name: `${orderData.shipping.firstName} ${orderData.shipping.lastName}`,
+                            email: orderData.shipping.email,
+                            phone: orderData.shipping.phone,
+                            address: orderData.shipping.address,
+                            city: orderData.shipping.city,
+                            postalCode: orderData.shipping.postalCode
+                        },
+                        totals: orderData.totals,
+                        paymentMethod: selectedPaymentMethod,
+                        status: 'Pending',
+                        createdAt: new Date().toISOString()
+                    };
+                    
+                    const response = await fetch('http://localhost:5000/api/orders', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${userToken}`
+                        },
+                        body: JSON.stringify(orderPayload)
+                    });
+                    
+                    if (response.ok) {
+                        const order = await response.json();
+                        console.log('Order created successfully:', order);
+                        hideLoading();
+                        showSuccessModal(order.id || 'GBDRY-' + Date.now().toString().slice(-6));
+                    } else {
+                        const error = await response.json().catch(() => ({}));
+                        console.error('Order creation failed:', error);
+                        hideLoading();
+                        alert('Order failed: ' + (error.message || (error.errors && error.errors[0] && error.errors[0].msg) || 'Please check backend logs and try again.'));
+                        return;
+                    }
+                } else {
+                    // Fallback: Save order to localStorage
+                    console.log('Using localStorage fallback for order');
+                    
+                    const createdOrder = {
+                        id: 'GBDRY-' + Date.now().toString().slice(-6),
+                        customer: {
+                            name: `${orderData.shipping.firstName} ${orderData.shipping.lastName}`,
+                            email: orderData.shipping.email,
+                            phone: orderData.shipping.phone,
+                            address: orderData.shipping.address,
+                            city: orderData.shipping.city
+                        },
+                        items: orderData.items,
+                        totals: orderData.totals,
+                        paymentMethod: selectedPaymentMethod,
+                        status: 'Pending',
+                        createdAt: new Date().toISOString()
+                    };
+                    
+                    // Save to localStorage orders array
+                    const existingOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+                    existingOrders.push(createdOrder);
+                    localStorage.setItem('orders', JSON.stringify(existingOrders));
+                    
+                    hideLoading();
+                    showSuccessModal(createdOrder.id);
+                }
+            } catch (error) {
+                console.error('Error placing order:', error);
+                hideLoading();
+                alert('An error occurred while placing your order. Please try again.');
+            }
+        }
+
+        // Show loading overlay
+        function showLoading() {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+        }
+
+        // Hide loading overlay
+        function hideLoading() {
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
+
+        // Show success modal
+        function showSuccessModal(orderId) {
+            document.getElementById('orderNumber').textContent = '#' + orderId;
+            document.getElementById('successModal').style.display = 'flex';
+        }
+
+        // Close success modal
+        function closeSuccessModal() {
+            document.getElementById('successModal').style.display = 'none';
+            // Redirect to home page
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

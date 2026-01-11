@@ -1,0 +1,469 @@
+/* Premium Food Brand Collection - Nature's Basket Style */
+/* Warm Organic Color Palette: Browns, Beige, Cream, Dark Green */
+
+:root {
+  /* Primary Colors - Warm Organic */
+  --primary-green: #2d5016;
+  --primary-green-dark: #1e3420;
+  --primary-green-light: #3a5f0b;
+  
+  /* Accent Colors - Premium */
+  --accent-brown: #8b4513;
+  --accent-orange: #d4a574;
+  --accent-gold: #f39c12;
+  
+  /* Neutral Colors - Clean */
+  --white: #ffffff;
+  --cream: #faf8f3;
+  --beige: #f5f0e6;
+  --muted-gray: #7f8c8d;
+  --light-gray: #f0e6d6;
+  --dark-gray: #2c3e50;
+  
+  /* Trust Colors */
+  --success-green: #27ae60;
+  --warning-orange: #e67e22;
+  --discount-red: #95a5a6;
+}
+
+/* Collection Header */
+.collection-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, var(--cream) 0%, var(--beige) 100%);
+  border-radius: 16px;
+}
+
+.collection-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--dark-gray);
+  margin-bottom: 1rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.collection-description {
+  font-size: 1.1rem;
+  color: var(--muted-gray);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Premium Grid Layout */
+.premium-collection .products-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  padding: 0;
+  list-style: none;
+}
+
+/* Desktop: 4 per row */
+@media (min-width: 1200px) {
+  .premium-collection .products-grid {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1400px;
+    margin: 0 auto 3rem;
+  }
+}
+
+/* Large Desktop: 3 per row */
+@media (min-width: 900px) and (max-width: 1199px) {
+  .premium-collection .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1100px;
+    margin: 0 auto 3rem;
+  }
+}
+
+/* Tablet: 2 per row */
+@media (min-width: 600px) and (max-width: 899px) {
+  .premium-collection .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin: 0 auto 2rem;
+    padding: 0 1rem;
+  }
+}
+
+/* Mobile: 1 per row */
+@media (max-width: 599px) {
+  .premium-collection .products-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin: 0 auto 2rem;
+    padding: 0 1rem;
+  }
+}
+
+/* Premium Product Card - Nature's Basket Style */
+.product-card {
+  background: var(--white);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(139, 69, 19, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--light-gray);
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(139, 69, 19, 0.15);
+  border-color: var(--accent-brown);
+}
+
+/* Product Image - Perfect Ratio (400x200) */
+.product-image-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--cream) 0%, var(--beige) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.05);
+}
+
+/* Product Link */
+.product-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+/* Product Info - Clean Hierarchy */
+.product-info {
+  padding: 1.2rem 1rem;
+  text-align: left;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Premium Quality Badges - Top Left */
+.product-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-light) 100%);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  z-index: 10;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 6px rgba(45, 80, 22, 0.3);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.product-badge.premium {
+  background: linear-gradient(135deg, var(--accent-brown) 0%, #c8956d 100%);
+  box-shadow: 0 2px 6px rgba(212, 165, 116, 0.3);
+}
+
+.product-badge.bestseller {
+  background: linear-gradient(135deg, var(--warning-orange) 0%, var(--accent-gold) 100%);
+  box-shadow: 0 2px 6px rgba(230, 126, 34, 0.3);
+}
+
+.product-badge.new {
+  background: linear-gradient(135deg, var(--success-green) 0%, #2ecc71 100%);
+  box-shadow: 0 2px 6px rgba(39, 174, 96, 0.3);
+}
+
+.product-badge.organic {
+  background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);
+  box-shadow: 0 2px 6px rgba(142, 68, 173, 0.3);
+}
+
+/* Product Name - Bold & Clear */
+.product-name {
+  color: var(--dark-gray);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  line-height: 1.3;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  -webkit-line-clamp: 2;
+  -moz-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.product-name a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.product-name a:hover {
+  color: var(--primary-green);
+}
+
+/* Product Weight - Muted */
+.product-weight {
+  color: var(--muted-gray);
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Star Rating - Trust Element */
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.stars {
+  color: var(--accent-gold);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.rating-count {
+  color: var(--muted-gray);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Premium Pricing Section */
+.product-price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.current-price {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--primary-green);
+  letter-spacing: -0.02em;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.original-price {
+  font-size: 0.9rem;
+  color: var(--discount-red);
+  text-decoration: line-through;
+  opacity: 0.7;
+  font-weight: 500;
+}
+
+/* Premium CTA Button - Full Width */
+.product-actions {
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.add-to-cart-btn {
+  background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-light) 100%);
+  color: white;
+  border: none;
+  padding: 0.875rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  box-shadow: 0 2px 4px rgba(45, 80, 22, 0.2);
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.add-to-cart-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transition: left 0.6s;
+}
+
+.add-to-cart-btn:hover::before {
+  left: 100%;
+}
+
+.add-to-cart-btn:hover {
+  background: linear-gradient(135deg, var(--primary-green-light) 0%, var(--primary-green-dark) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(45, 80, 22, 0.3);
+}
+
+.add-to-cart-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(45, 80, 22, 0.4);
+}
+
+.add-to-cart-btn:disabled {
+  background: linear-gradient(135deg, var(--discount-red) 0%, var(--muted-gray) 100%);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.add-to-cart-btn:disabled:hover {
+  background: linear-gradient(135deg, var(--discount-red) 0%, var(--muted-gray) 100%);
+  transform: none;
+  box-shadow: none;
+}
+
+/* Premium Pagination */
+.premium-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 3rem 0;
+  padding: 1.5rem;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(139, 69, 19, 0.08);
+}
+
+.pagination-btn {
+  background: var(--beige);
+  border: 1px solid var(--light-gray);
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+  color: var(--dark-gray);
+  font-weight: 600;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.pagination-btn:hover {
+  background: var(--primary-green);
+  border-color: var(--primary-green);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.pagination-btn.current {
+  background: var(--primary-green);
+  border-color: var(--primary-green);
+  color: white;
+}
+
+.pagination-btn.prev::before {
+  content: '← ';
+  margin-right: 0.25rem;
+}
+
+.pagination-btn.next::after {
+  content: ' →';
+  margin-left: 0.25rem;
+}
+
+/* Mobile Optimization */
+@media (max-width: 599px) {
+  .collection-title {
+    font-size: 2rem;
+  }
+  
+  .collection-description {
+    font-size: 1rem;
+  }
+  
+  .product-info {
+    padding: 1rem 0.75rem;
+  }
+  
+  .add-to-cart-btn {
+    padding: 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .premium-pagination {
+    padding: 1rem;
+    gap: 0.25rem;
+  }
+  
+  .pagination-btn {
+    padding: 0.625rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* Loading State */
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: var(--muted-gray);
+  font-size: 1.1rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.no-products {
+  text-align: center;
+  padding: 3rem;
+  color: var(--muted-gray);
+  font-size: 1.1rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.product-card {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Focus States for Accessibility */
+.add-to-cart-btn:focus,
+.pagination-btn:focus {
+  outline: 2px solid var(--primary-green);
+  outline-offset: 2px;
+}
+
+.product-link:focus {
+  outline: 2px solid var(--primary-green);
+  outline-offset: 2px;
+  border-radius: 4px;
+}

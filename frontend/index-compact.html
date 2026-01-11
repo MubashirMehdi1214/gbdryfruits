@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pakistan's #1 Premium Dry Fruits | GBDRYFRUITS</title>
+    <meta name="description" content="Shop premium quality dry fruits, nuts, and dates online in Pakistan. Fresh products with same day delivery.">
+    <meta name="keywords" content="dry fruits Pakistan, nuts online, premium dry fruits, GBDRYFRUITS">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/premium-header.css">
+    <link rel="stylesheet" href="css/premium-cart.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #FAF7F0 0%, #F5F0E6 100%);
+        }
+        
+        .hero-compact {
+            padding: 3rem 1rem;
+            text-align: center;
+            background: linear-gradient(135deg, #2D5016 0%, #1a3408 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content-compact {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .hero-title-compact {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle-compact {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .cta-section-compact {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-primary-compact {
+            background: white;
+            color: #2D5016;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .cta-primary-compact:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.25);
+        }
+        
+        .cta-secondary-compact {
+            background: transparent;
+            color: white;
+            padding: 1rem 2rem;
+            border: 2px solid white;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .cta-secondary-compact:hover {
+            background: white;
+            color: #2D5016;
+        }
+        
+        .features-compact {
+            padding: 4rem 1rem;
+            background: white;
+        }
+        
+        .features-grid-compact {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .feature-card-compact {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .feature-icon-compact {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #2D5016 0%, #1a3408 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .feature-title-compact {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2D5016;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-description-compact {
+            color: #6b7280;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        .stats-compact {
+            padding: 3rem 1rem;
+            background: #F8F9FA;
+            border-top: 1px solid #E5E7EB;
+            border-bottom: 1px solid #E5E7EB;
+        }
+        
+        .stats-grid-compact {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+        
+        .stat-item-compact {
+            padding: 1.5rem;
+        }
+        
+        .stat-number-compact {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #2D5016;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .stat-label-compact {
+            color: #6b7280;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        
+        .products-compact {
+            padding: 4rem 1rem;
+        }
+        
+        .section-header-compact {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title-compact {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2D5016;
+            margin-bottom: 1rem;
+        }
+        
+        .section-subtitle-compact {
+            color: #6b7280;
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .products-grid-compact {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title-compact {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle-compact {
+                font-size: 1rem;
+            }
+            
+            .cta-section-compact {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .features-grid-compact,
+            .stats-grid-compact,
+            .products-grid-compact {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .stat-number-compact {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Premium Header System -->
+    <header class="premium-header">
+        <!-- Trust Layer - Top Bar -->
+        <div class="trust-layer">
+            <div class="trust-bar">
+                <div class="trust-item">
+                    <span class="trust-icon">🚚</span>
+                    <span>Fast delivery available</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">📞</span>
+                    <span>WhatsApp Support</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>100% Natural | Freshly Packed | COD Available</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <div class="main-header">
+            <div class="main-header-container">
+                <!-- Brand Logo -->
+                <div class="brand-section">
+                    <a href="index.html" class="brand-logo">
+                        <img src="images/LOGO.png" alt="GBDRYFRUITS" height="40">
+                    </a>
+                </div>
+
+                <!-- Premium Search Bar -->
+                <div class="search-section">
+                    <div class="search-container">
+                        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.35-1.45-1.32-1C17.65 14.17 16.35 13.07 16 11.5c0-.6.35-.15-1.3-.35-2.1-.35-1.75 0-3.15.15-4.35 1.1-1.2 1.85-1.2 3.1 0 4.35-1.1 1.35-2.1 1.35-2.1 0"/>
+                        </svg>
+                        <input 
+                            type="text" 
+                            class="premium-search" 
+                            placeholder="Search almonds, cashews, pistachios…"
+                            id="premiumSearch"
+                        >
+                        <div class="search-suggestions" id="searchSuggestions">
+                            <!-- Suggestions will be dynamically inserted here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Header Actions -->
+                <div class="actions-section">
+                    <button class="action-btn" onclick="window.location.href='profile.html'">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        Account
+                    </button>
+                    <button class="action-btn" onclick="toggleWishlist()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 0L3.16 4.61A5.5 5.5 0 0 0 5.05 5.05l1.42 1.42A5.5 5.5 0 0 0 7.78 0l12 5.67l-1.06 1.06a5.5 5.5 0 0 0 7.78 0l1.42-1.42A5.5 5.5 0 0 0 5.05 5.05L12 5.67l-1.06 1.06a5.5 5.5 0 0 0 7.78 0l1.42-1.42A5.5 5.5 0 0 0 5.05 5.05L12 5.67z"/>
+                        </svg>
+                        Wishlist
+                        <span class="wishlist-count" style="display: none;">0</span>
+                    </button>
+                    <button class="action-btn cart-trigger" onclick="toggleCart()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 2L6 9H3v2h3l2 7h10l2-7h3V9z"/>
+                            <circle cx="9" cy="21" r="1"/>
+                            <circle cx="20" cy="21" r="1"/>
+                        </svg>
+                        Cart
+                        <span class="cart-count-badge">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Bar -->
+        <div class="nav-bar">
+            <div class="nav-container">
+                <a href="index.html" class="nav-link active">Home</a>
+                
+                <!-- Shop Mega Menu -->
+                <div class="nav-link mega-dropdown" onmouseenter="showMegaMenu('shop')" onmouseleave="hideMegaMenu('shop')">
+                    <span>Shop</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                    
+                    <!-- Mega Menu Content -->
+                    <div class="mega-menu" id="shopMegaMenu">
+                        <div class="mega-menu-container">
+                            <div class="mega-category">
+                                <h4 class="mega-category-title">Nuts</h4>
+                                <div class="mega-links">
+                                    <a href="products.html?category=almonds" class="mega-link">Almonds</a>
+                                    <a href="products.html?category=cashews" class="mega-link">Cashews</a>
+                                    <a href="products.html?category=welnuts" class="mega-link">Walnuts</a>
+                                    <a href="products.html?category=pistachios" class="mega-link">Pistachios</a>
+                                    <a href="products.html?category=mixed-nuts" class="mega-link">Mixed Nuts</a>
+                                </div>
+                            </div>
+                            <div class="mega-category">
+                                <h4 class="mega-category-title">Dry Fruits</h4>
+                                <div class="mega-links">
+                                    <a href="products.html?category=dates" class="mega-link">Dates</a>
+                                    <a href="products.html?category=apricots" class="mega-link">Apricots</a>
+                                    <a href="products.html?category=figs" class="mega-link">Figs</a>
+                                    <a href="products.html?category=raisins" class="mega-link">Raisins</a>
+                                </div>
+                            </div>
+                            <div class="mega-category">
+                                <h4 class="mega-category-title">Special Packs</h4>
+                                <div class="mega-links">
+                                    <a href="products.html?category=best-products" class="mega-link">Best Products</a>
+                                    <a href="products.html?category=combo-packs" class="mega-link">Combo Packs</a>
+                                    <a href="products.html?category=gift-packs" class="mega-link">Gift Packs</a>
+                                    <a href="products.html?category=corporate-gifting" class="mega-link">Corporate Gifting</a>
+                                </div>
+                            </div>
+                            <div class="mega-category">
+                                <h4 class="mega-category-title">Seeds</h4>
+                                <div class="mega-links">
+                                    <a href="products.html?category=pumpkin-seeds" class="mega-link">Pumpkin Seeds</a>
+                                    <a href="products.html?category=sunflower-seeds" class="mega-link">Sunflower Seeds</a>
+                                    <a href="products.html?category=chia-seeds" class="mega-link">Chia Seeds</a>
+                                    <a href="products.html?category=flax-seeds" class="mega-link">Flax Seeds</a>
+                                </div>
+                            </div>
+                            <div class="mega-category">
+                                <h4 class="mega-category-title">Featured</h4>
+                                <div class="mega-links">
+                                    <a href="products.html?category=new-arrivals" class="mega-link">New Arrivals</a>
+                                    <a href="products.html?category=seasonal-specials" class="mega-link">Seasonal Specials</a>
+                                    <a href="products.html?category=organic-selection" class="mega-link">Organic Selection</a>
+                                    <a href="products.html?category=premium-quality" class="mega-link">Premium Quality</a>
+                                </div>
+                            </div>
+                            <div class="mega-category">
+                                <h4 class="mega-category-title">By Weight</h4>
+                                <div class="mega-links">
+                                    <a href="products.html?weight=250g" class="mega-link">250g Packs</a>
+                                    <a href="products.html?weight=500g" class="mega-link">500g Packs</a>
+                                    <a href="products.html?weight=1kg" class="mega-link">1kg Packs</a>
+                                    <a href="products.html?weight=2kg" class="mega-link">2kg Packs</a>
+                                </div>
+                            </div>
+                            <div class="mega-category">
+                                <h4 class="mega-category-title">Occasions</h4>
+                                <div class="mega-links">
+                                    <a href="products.html?occasion=ramadan" class="mega-link">Ramadan Special</a>
+                                    <a href="products.html?occasion=eid" class="mega-link">Eid Collection</a>
+                                    <a href="products.html?occasion=weddings" class="mega-link">Wedding Packs</a>
+                                    <a href="products.html?occasion=corporate" class="mega-link">Corporate Gifts</a>
+                                </div>
+                            </div>
+                            <div class="mega-category">
+                                <h4 class="mega-category-title">Health</h4>
+                                <div class="mega-links">
+                                    <a href="products.html?category=heart-healthy" class="mega-link">Heart Healthy</a>
+                                    <a href="products.html?category=protein-rich" class="mega-link">Protein Rich</a>
+                                    <a href="products.html?category=low-sugar" class="mega-link">Low Sugar</a>
+                                    <a href="products.html?category=vitamin-packed" class="mega-link">Vitamin Packed</a>
+                                </div>
+                            </div>
+                            <div class="mega-category">
+                                <h4 class="mega-category-title">Quick Shop</h4>
+                                <div class="mega-links">
+                                    <a href="products.html?quick=bestsellers" class="mega-link">Top Rated</a>
+                                    <a href="products.html?quick=offers" class="mega-link">Special Offers</a>
+                                    <a href="products.html?quick=family-packs" class="mega-link">Family Packs</a>
+                                    <a href="products.html?quick=gift-sets" class="mega-link">Gift Sets</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="products.html?category=best-sellers" class="nav-link">Best Products</a>
+                <a href="products.html?category=combo-packs" class="nav-link">Combo Packs</a>
+                <a href="products.html?category=gift-packs" class="nav-link">Corporate Gifting</a>
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Compact Hero Section -->
+        <section class="hero-compact">
+            <div class="hero-content-compact">
+                <h1 class="hero-title-compact">🏆 Pakistan's #1 Premium Dry Fruits</h1>
+                <p class="hero-subtitle-compact">
+                    Fresh Dry Fruits & Premium Nuts Delivered to Your Doorstep<br>
+                    <strong>100% Natural • No Preservatives • Farm-Fresh Quality • Same Day Delivery in Major Cities</strong>
+                </p>
+                
+                <div class="cta-section-compact">
+                    <a href="products.html" class="cta-primary-compact">Shop Premium Dry Fruits</a>
+                    <a href="products.html?category=best-sellers" class="cta-secondary-compact">View Collections</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Compact Features Section -->
+        <section class="features-compact">
+            <div class="features-grid-compact">
+                <div class="feature-card-compact">
+                    <div class="feature-icon-compact">👥</div>
+                    <h3 class="feature-title-compact">50,000+</h3>
+                    <p class="feature-description-compact">Happy Customers</p>
+                </div>
+                
+                <div class="feature-card-compact">
+                    <div class="feature-icon-compact">⭐</div>
+                    <h3 class="feature-title-compact">4.8★</h3>
+                    <p class="feature-description-compact">Customer Rating</p>
+                </div>
+                
+                <div class="feature-card-compact">
+                    <div class="feature-icon-compact">✓</div>
+                    <h3 class="feature-title-compact">100%</h3>
+                    <p class="feature-description-compact">Quality Guarantee</p>
+                </div>
+                
+                <div class="feature-card-compact">
+                    <div class="feature-icon-compact">🚚</div>
+                    <h3 class="feature-title-compact">Fast Delivery</h3>
+                    <p class="feature-description-compact">Same Day Delivery in Major Cities</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Compact Stats Section -->
+        <section class="stats-compact">
+            <div class="stats-grid-compact">
+                <div class="stat-item-compact">
+                    <span class="stat-number-compact">50+</span>
+                    <span class="stat-label-compact">Varieties Available</span>
+                </div>
+                
+                <div class="stat-item-compact">
+                    <span class="stat-number-compact">✓</span>
+                    <span class="stat-label-compact">100% Authentic</span>
+                </div>
+                
+                <div class="stat-item-compact">
+                    <span class="stat-number-compact">💰</span>
+                    <span class="stat-label-compact">Money Back Guarantee</span>
+                </div>
+                
+                <div class="stat-item-compact">
+                    <span class="stat-number-compact">🔒</span>
+                    <span class="stat-label-compact">Secure Payment</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Preview Section -->
+        <section class="products-compact">
+            <div class="section-header-compact">
+                <h2 class="section-title-compact">Featured Products</h2>
+                <p class="section-subtitle-compact">Discover our most popular premium dry fruits and nuts</p>
+            </div>
+            
+            <div class="products-grid-compact" id="featuredProductsGrid">
+                <!-- Products will be loaded here -->
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="products.html?category=best-products" class="cta-primary-compact">View All Products →</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="container mx-auto px-4 py-6">
+            <div class="text-center text-sm text-gray-600">
+                <p>&copy; 2024 GB Dry Fruits. All rights reserved.</p>
+                <div class="flex items-center justify-center space-x-4 mt-2">
+                    <span>Owner: Mubashir Mehdi</span>
+                    <span>•</span>
+                    <span>Email: munashirmehdi@mail.com</span>
+                    <span>•</span>
+                    <span>Phone: +923115189291</span>
+                </div>
+                <div class="flex items-center justify-center space-x-4 mt-2">
+                    <span>Meezan Bank Account: 03810104256225</span>
+                    <span>•</span>
+                    <span>WhatsApp: +923115189291</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Premium Cart System -->
+    <div id="cartOverlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl p-6 max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold text-gray-900">Your Cart</h3>
+                <button onclick="toggleCart()" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div id="cartItems" class="space-y-4 mb-4">
+                <!-- Cart items will be dynamically inserted here -->
+            </div>
+            <div class="border-t pt-4">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-gray-600">Subtotal</span>
+                    <span class="font-bold" id="cartSubtotal">Rs. 0</span>
+                </div>
+                <div class="flex justify-between mb-4">
+                    <button onclick="clearCart()" class="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+                        Clear Cart
+                    </button>
+                    <button onclick="proceedToCheckout()" class="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                        Proceed to Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/mock-data.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/premium-header.js"></script>
+    <script src="js/premium-cart.js"></script>
+    <script>
+        // Load featured products on home page
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.mockAPI && window.mockAPI.products) {
+                const featuredProducts = window.mockAPI.products.slice(0, 6); // Show first 6 products
+                const grid = document.getElementById('featuredProductsGrid');
+                
+                grid.innerHTML = featuredProducts.map(product => `
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img src="${product.image}" alt="${product.name}" class="product-image">
+                            ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">${product.name}</h3>
+                            <p class="product-weight">${product.weight || ''}</p>
+                            <div class="product-price-row">
+                                <span class="product-price">Rs. ${product.price.toLocaleString()}</span>
+                                ${product.originalPrice ? `<span class="original-price">Rs. ${product.originalPrice.toLocaleString()}</span>` : ''}
+                            </div>
+                            <div class="product-rating">
+                                ${generateStars(product.rating || 4.5)}
+                                <span class="rating-text">${product.rating || 4.5} (${Math.floor(Math.random() * 50) + 10} reviews)</span>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart('${product.id}', '${product.name}', ${product.price}, '${product.image}', '${product.weight || ''}')">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        });
+        
+        function generateStars(rating) {
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 !== 0;
+            const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+            
+            let stars = '';
+            
+            // Full stars
+            for (let i = 0; i < fullStars; i++) {
+                stars += '<span class="star">★</span>';
+            }
+            
+            // Half star
+            if (hasHalfStar) {
+                stars += '<span class="star half">★</span>';
+            }
+            
+            // Empty stars
+            for (let i = 0; i < emptyStars; i++) {
+                stars += '<span class="star empty">☆</span>';
+            }
+            
+            return stars;
+        }
+    </script>
+</body>
+</html>

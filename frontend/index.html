@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Premium Dry Fruits Online in Pakistan | GBDRYFRUITS - Fresh Nuts, Dates & More</title>
+    <meta name="description" content="Shop premium quality dry fruits, nuts, and dates online in Pakistan. Fresh almonds, cashews, walnuts, pistachios at best prices. Same day delivery in Karachi, Lahore, Islamabad.">
+    <meta name="keywords" content="dry fruits Pakistan, nuts online, buy almonds, cashews, walnuts, dates shop, pistachios, dried fruits, premium nuts, Pakistan dry fruits store">
+    <meta property="og:title" content="GBDRYFRUITS - Premium Dry Fruits & Nuts Online Pakistan">
+    <meta property="og:description" content="Shop fresh, premium quality dry fruits and nuts online in Pakistan. Best prices with same day delivery.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gbdryfruits.com">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://gbdryfruits.com">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/premium-header.css">
+    <link rel="stylesheet" href="css/premium-cart.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Premium Header System -->
+    <header class="premium-header">
+        <!-- Trust Layer - Top Bar -->
+        <div class="trust-layer">
+            <div class="trust-bar">
+                <div class="trust-item">
+                    <span class="trust-icon">🚚</span>
+                    <span>Fast delivery available</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">📞</span>
+                    <span>WhatsApp Support</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>100% Natural | Freshly Packed | COD Available</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <div class="main-header">
+            <div class="main-header-container">
+                <!-- Brand Logo -->
+                <div class="brand-section">
+                    <a href="index.html" class="brand-logo">
+                        <img src="images/LOGO.png" alt="GBDRYFRUITS" height="50">
+                    </a>
+                </div>
+
+                <!-- Premium Search Bar -->
+                <div class="search-section">
+                    <div class="search-container">
+                        <input 
+                            type="text" 
+                            class="premium-search" 
+                            placeholder="Search almonds, cashews, pistachios…"
+                            id="premiumSearch"
+                        >
+                        <div class="search-suggestions" id="searchSuggestions">
+                            <!-- Suggestions will be dynamically inserted here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Header Actions -->
+                <div class="actions-section">
+                    <button class="action-btn" onclick="window.location.href='login.html'">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        Account
+                    </button>
+                    <button class="action-btn" onclick="toggleWishlist()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 0L3.16 4.61A5.5 5.5 0 0 0 5.05 5.05l1.42 1.42A5.5 5.5 0 0 0 7.78 0l1.06 1.06L12 5.67l1.06-1.06a5.5 5.5 0 0 0 7.78 0l1.42-1.42A5.5 5.5 0 0 0 5.05 5.05L12 5.67z"/>
+                        </svg>
+                        Wishlist
+                        <span class="wishlist-count" style="display: none;">0</span>
+                    </button>
+                    <button class="action-btn cart-trigger" onclick="toggleCart()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 2L6 9H3v2h3l2 7h10l2-7h3V9h-3l-2-7z"/>
+                            <circle cx="9" cy="21" r="1"/>
+                            <circle cx="20" cy="21" r="1"/>
+                        </svg>
+                        Cart
+                        <span class="cart-count-badge">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Bar -->
+        <div class="nav-bar">
+            <div class="nav-container">
+                <a href="index.html" class="nav-link active">Home</a>
+                
+                <!-- Shop Mega Menu -->
+                <div class="nav-link mega-dropdown" onmouseenter="showMegaMenu('shop')" onmouseleave="hideMegaMenu('shop')">
+                    <span>Shop</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                    
+                    <!-- Mega Menu Content -->
+                    <div class="mega-menu" id="shopMegaMenu">
+                        <div class="mega-menu-container">
+                            <div class="mega-category">
+                                <h4 class="mega-category-title">Nuts</h4>
+                                <div class="mega-links">
+                                    <a href="products.html?category=almonds" class="mega-link">Almonds</a>
+                                    <a href="products.html?category=cashews" class="mega-link">Cashews</a>
+                                    <a href="products.html?category=welnuts" class="mega-link">Walnuts</a>
+                                    <a href="products.html?category=pistachios" class="mega-link">Pistachios</a>
+                                    <a href="products.html?category=mixed-nuts" class="mega-link">Mixed Nuts</a>
+                                </div>
+                            </div>
+                            <div class="mega-category">
+                                <h4 class="mega-category-title">Dry Fruits</h4>
+                                <div class="mega-links">
+                                    <a href="products.html?category=dates" class="mega-link">Dates</a>
+                                    <a href="products.html?category=apricots" class="mega-link">Apricots</a>
+                                    <a href="products.html?category=figs" class="mega-link">Figs</a>
+                                    <a href="products.html?category=raisins" class="mega-link">Raisins</a>
+                                </div>
+                            </div>
+                            <div class="mega-category">
+                                <h4 class="mega-category-title">Special Packs</h4>
+                                <div class="mega-links">
+                                    <a href="products.html?category=best-products" class="mega-link">Best Products</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="products.html?category=best-sellers" class="nav-link">Best Products</a>
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <div class="mobile-header-container">
+            <a href="index.html" class="mobile-logo">
+                <img src="images/LOGO.png" alt="GBDRYFRUITS" height="40">
+            </a>
+            
+            <button class="hamburger-menu" onclick="toggleMobileMenu()">
+                <div class="hamburger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <div class="mobile-menu-content">
+            <div class="mobile-nav-section">
+                <h4 class="mobile-nav-title">Shop</h4>
+                <div class="mobile-nav-links">
+                    <a href="products.html?category=almonds" class="mobile-nav-link">Almonds</a>
+                    <a href="products.html?category=cashews" class="mobile-nav-link">Cashews</a>
+                    <a href="products.html?category=welnuts" class="mobile-nav-link">Walnuts</a>
+                    <a href="products.html?category=pistachios" class="mobile-nav-link">Pistachios</a>
+                    <a href="products.html?category=dates" class="mobile-nav-link">Dates</a>
+                    <a href="products.html?category=best-products" class="mobile-nav-link">Best Products</a>
+                </div>
+            </div>
+            <div class="mobile-nav-section">
+                <h4 class="mobile-nav-title">Account</h4>
+                <div class="mobile-nav-links">
+                    <a href="login.html" class="mobile-nav-link">My Account</a>
+                    <a href="#" class="mobile-nav-link" onclick="toggleWishlist()">Wishlist</a>
+                    <a href="#" class="mobile-nav-link" onclick="toggleCart()">Cart</a>
+                </div>
+            </div>
+            <div class="mobile-search-section">
+                <input type="text" class="mobile-search" placeholder="Search products...">
+            </div>
+            <div class="mobile-actions">
+                <button class="mobile-action-btn" onclick="window.location.href='products.html'">
+                    Browse Products
+                </button>
+            </div>
+        </div>
+    </div>
+    <section id="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>🏆 Pakistan's #1 Premium Dry Fruits</span>
+            </div>
+            <h1>Fresh Dry Fruits & Premium Nuts<br>Delivered to Your Doorstep</h1>
+            <p class="hero-subtitle">100% Natural • No Preservatives • Farm-Fresh Quality • Same Day Delivery in Major Cities</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">50,000+</span>
+                    <span class="stat-label">Happy Customers</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">4.8★</span>
+                    <span class="stat-label">Customer Rating</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Quality Guarantee</span>
+                </div>
+            </div>
+            <div class="hero-buttons">
+                <a href="products.html" class="btn-primary">
+                    <span>Shop Premium Dry Fruits</span>
+                    <small>Free Shipping on Orders Above Rs.1000</small>
+                </a>
+                <a href="#featured" class="btn-secondary">
+                    <span>View Collections</span>
+                    <small>50+ Varieties Available</small>
+                </a>
+            </div>
+            <div class="trust-badges">
+                <div class="badge">
+                    <span>✓</span>
+                    <span>100% Authentic</span>
+                </div>
+                <div class="badge">
+                    <span>✓</span>
+                    <span>Money Back Guarantee</span>
+                </div>
+                <div class="badge">
+                    <span>✓</span>
+                    <span>Secure Payment</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Floating Dry Fruits and Nuts -->
+        <div class="floating-fruit" style="font-size: 2rem;">🥜</div>
+        <div class="floating-fruit" style="font-size: 1.5rem;">🌰</div>
+        <div class="floating-fruit" style="font-size: 1.8rem;">🍇</div>
+        <div class="floating-fruit" style="font-size: 2.2rem;">🥜</div>
+        <div class="floating-fruit" style="font-size: 1.6rem;">🌰</div>
+        <div class="floating-fruit" style="font-size: 1.4rem;">🍇</div>
+    </section>
+        
+        <section class="featured-products">
+            <div class="container">
+                <h2>Featured Products</h2>
+                <p class="subtitle">Discover our hand-picked selection of premium dry fruits and nuts, sourced from the finest farms around the world</p>
+                <div class="featured-grid" id="featuredProducts">
+                    <!-- Featured products will be loaded here -->
+                </div>
+                <div class="view-all">
+                    <button class="cta-button" onclick="window.location.href='products.html?category=best-products'">View All Products</button>
+                </div>
+            </div>
+        </section>
+        
+        <section class="testimonials">
+            <div class="container">
+                <h2>What Our Customers Say</h2>
+                <div class="testimonial-grid">
+                    <div class="testimonial-card">
+                        <div class="stars">★★★★★</div>
+                        <p>"Excellent quality dry fruits! Fresh and delicious. Will definitely order again."</p>
+                        <div class="customer">- Sarah K.</div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="stars">★★★★★</div>
+                        <p>"Great prices and fast delivery. The almonds are the best I've had!"</p>
+                        <div class="customer">- Rahul M.</div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="stars">★★★★★</div>
+                        <p>"Premium quality products and excellent customer service. Highly recommended!"</p>
+                        <div class="customer">- Priya S.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Dark Overlay -->
+    <div class="cart-overlay" onclick="closeCart()"></div>
+
+    <!-- Premium Cart Drawer -->
+    <div class="cart-drawer">
+        <!-- Cart Header -->
+        <div class="cart-header">
+            <h3 class="cart-title">Shopping Cart</h3>
+            <button class="close-cart" onclick="closeCart()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Cart Items -->
+        <div class="cart-items">
+            <!-- Cart items will be dynamically inserted here -->
+        </div>
+
+        <!-- Free Shipping Progress -->
+        <div class="shipping-progress">
+            <div class="progress-info">
+                <span class="progress-text">Add Rs. <span class="amount-needed">450</span> more for FREE delivery</span>
+                <span class="progress-percentage">55%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 55%"></div>
+            </div>
+        </div>
+
+        <!-- Cart Footer -->
+        <div class="cart-footer">
+            <!-- COD Badge -->
+            <div class="cod-badge">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2v-1c0-1.1.9-2 2-2h14c1.1 0 2 .9 2 2zm-7-2h-4v-2h4v2zm-3-4H8V8h3v4z"/>
+                </svg>
+                Cash on Delivery Available
+            </div>
+
+            <!-- Subtotal -->
+            <div class="cart-subtotal">
+                <span class="subtotal-label">Subtotal</span>
+                <span class="subtotal-amount">Rs. 0</span>
+            </div>
+
+            <!-- Checkout Button -->
+            <button class="checkout-btn" onclick="proceedToCheckout()">
+                Proceed to Checkout
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                    <polyline points="12 5 19 12 12 19"/>
+                </svg>
+            </button>
+
+            <!-- Continue Shopping -->
+            <button class="continue-shopping" onclick="closeCart()">
+                Continue Shopping
+            </button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 GBDRYFRUITS. All rights reserved.</p>
+    </footer>
+
+    <!-- Zoom Controls -->
+    <div class="zoom-controls">
+        <button class="zoom-btn" onclick="zoomOut()" title="Zoom Out">−</button>
+        <div class="zoom-level">100%</div>
+        <button class="zoom-btn" onclick="zoomIn()" title="Zoom In">+</button>
+    </div>
+
+    <script src="js/mock-data.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/premium-header.js"></script>
+    <script src="js/premium-cart.js"></script>
+</body>
+</html>

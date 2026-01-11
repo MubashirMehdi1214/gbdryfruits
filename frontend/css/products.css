@@ -1,0 +1,984 @@
+/* Products Page Styles */
+.products-page {
+    background: #f8f9fa;
+}
+
+.products-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem 2rem;
+    text-align: center;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.products-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 60%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+    animation: floatDryFruits 15s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes floatDryFruits {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.3;
+    }
+    25% {
+        transform: translateY(-10px) rotate(5deg);
+        opacity: 0.5;
+    }
+    50% {
+        transform: translateY(-5px) rotate(-3deg);
+        opacity: 0.4;
+    }
+    75% {
+        transform: translateY(-15px) rotate(3deg);
+        opacity: 0.6;
+    }
+}
+
+.hero-content h1 {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+}
+
+.hero-content p {
+    font-size: 1.1rem;
+    margin-bottom: 0;
+    opacity: 0.9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-bar {
+    display: flex;
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar input {
+    flex: 1;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    outline: none;
+}
+
+.search-bar button {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.search-bar button:hover {
+    background: #c0392b;
+}
+
+.products-container {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.filters-sidebar {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+    position: sticky;
+    top: 80px;
+}
+
+.search-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.search-filter input {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.search-filter button {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.search-filter button:hover {
+    background: #5a6fd8;
+}
+
+.filter-section {
+    margin-bottom: 2rem;
+}
+
+.filter-section h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    border-bottom: 2px solid #e74c3c;
+    padding-bottom: 0.5rem;
+}
+
+.category-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.checkbox-label:hover {
+    color: #e74c3c;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: auto;
+}
+
+.price-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.price-filter input {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.price-filter button {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.price-filter button:hover {
+    background: #c0392b;
+}
+
+#sortSelect {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+}
+
+.clear-filters-btn {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.clear-filters-btn:hover {
+    background: #5a6268;
+}
+
+.quick-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.filter-chip {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 0.5rem;
+}
+
+.filter-chip input {
+    display: none;
+}
+
+.filter-chip span {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #495057;
+}
+
+.filter-chip:hover {
+    background: #e9ecef;
+    border-color: #dee2e6;
+}
+
+.filter-chip input:checked + span {
+    color: #e74c3c;
+    font-weight: 600;
+}
+
+.filter-chip input:checked ~ .filter-chip {
+    background: #ffe4e6;
+    border-color: #e74c3c;
+}
+
+.product-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #e74c3c;
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 10;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.product-badge.bestseller {
+    background: #ff6b35;
+}
+
+.product-badge.new {
+    background: #28a745;
+}
+
+.product-badge.sale {
+    background: #dc3545;
+}
+
+.product-badge.organic {
+    background: #6f42c1;
+}
+
+/* Product Meta Information */
+.product-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+}
+
+.rating {
+    color: #f39c12;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.stock-status {
+    color: #28a745;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.discount-badge {
+    background: #dc3545;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-left: 0.5rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.products-content {
+    min-height: 600px;
+}
+
+.products-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.products-header h2 {
+    color: #2c3e50;
+    margin: 0;
+}
+
+.view-options {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.view-btn {
+    background: #ecf0f1;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.view-btn.active {
+    background: #e74c3c;
+    color: white;
+}
+
+/* Premium Product Grid - Perfect Alignment */
+.products-grid {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    padding: 0;
+    list-style: none;
+}
+
+/* Desktop: 4 per row */
+@media (min-width: 1200px) {
+    .products-grid {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 1400px;
+        margin: 0 auto 3rem;
+    }
+}
+
+/* Large Desktop: 3 per row */
+@media (min-width: 900px) and (max-width: 1199px) {
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 1100px;
+        margin: 0 auto 3rem;
+    }
+}
+
+/* Tablet: 2 per row */
+@media (min-width: 600px) and (max-width: 899px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        margin: 0 auto 2rem;
+        padding: 0 1rem;
+    }
+}
+
+/* Mobile: 1 per row */
+@media (max-width: 599px) {
+    .products-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin: 0 auto 2rem;
+        padding: 0 1rem;
+    }
+}
+
+/* Premium Food Brand Product Card - Nature's Basket Style */
+.product-card {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(139, 69, 19, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid #f0e6d6;
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(139, 69, 19, 0.15);
+    border-color: #d4a574;
+}
+
+.product-image-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #faf8f3 0%, #f5f0e6 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.05);
+}
+
+.product-info {
+    padding: 1.2rem 1rem;
+    text-align: left;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* Premium Quality Badges */
+.product-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: linear-gradient(135deg, #2d5016 0%, #3a5f0b 100%);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    z-index: 10;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 6px rgba(45, 80, 22, 0.3);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.product-badge.premium {
+    background: linear-gradient(135deg, #d4a574 0%, #c8956d 100%);
+    box-shadow: 0 2px 6px rgba(212, 165, 116, 0.3);
+}
+
+.product-badge.bestseller {
+    background: linear-gradient(135deg, #e67e22 0%, #f39c12 100%);
+    box-shadow: 0 2px 6px rgba(230, 126, 34, 0.3);
+}
+
+.product-badge.new {
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+    box-shadow: 0 2px 6px rgba(39, 174, 96, 0.3);
+}
+
+.product-badge.organic {
+    background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);
+    box-shadow: 0 2px 6px rgba(142, 68, 173, 0.3);
+}
+
+/* Product Name - Bold & Clear */
+.product-name {
+    color: #2c3e50;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    line-height: 1.3;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    -webkit-line-clamp: 2;
+    -moz-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Product Weight - Muted */
+.product-weight {
+    color: #7f8c8d;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.product-weight-selector {
+    margin-bottom: 0.5rem;
+}
+
+.weight-dropdown {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.weight-dropdown:hover {
+    border-color: #667eea;
+}
+
+.weight-dropdown:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+/* Star Rating - Trust Element */
+.product-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.stars {
+    color: #f39c12;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.rating-count {
+    color: #7f8c8d;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+/* Premium Pricing Section */
+.product-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.current-price {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #2d5016;
+    letter-spacing: -0.02em;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.original-price {
+    font-size: 0.9rem;
+    color: #95a5a6;
+    text-decoration: line-through;
+    opacity: 0.7;
+    font-weight: 500;
+}
+
+/* Premium CTA Button - Full Width */
+.product-actions {
+    margin-top: auto;
+    padding-top: 0.5rem;
+}
+
+.add-to-cart-btn {
+    background: linear-gradient(135deg, #2d5016 0%, #3a5f0b 100%);
+    color: white;
+    border: none;
+    padding: 0.875rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    box-shadow: 0 2px 4px rgba(45, 80, 22, 0.2);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.add-to-cart-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    transition: left 0.6s;
+}
+
+.add-to-cart-btn:hover::before {
+    left: 100%;
+}
+
+.add-to-cart-btn:hover {
+    background: linear-gradient(135deg, #3a5f0b 0%, #4a6741 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(45, 80, 22, 0.3);
+}
+
+.add-to-cart-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(45, 80, 22, 0.4);
+}
+
+.add-to-cart-btn:disabled {
+    background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.add-to-cart-btn:disabled:hover {
+    background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+    transform: none;
+    box-shadow: none;
+}
+
+/* Premium Price Section */
+.product-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.current-price {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    letter-spacing: -0.02em;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.original-price {
+    font-size: 1rem;
+    color: #999;
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+/* Premium Product Badges */
+.product-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+    color: white;
+    padding: 0.4rem 0.9rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    z-index: 10;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(139, 69, 19, 0.3);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.product-badge.bestseller {
+    background: linear-gradient(135deg, #FF6B35 0%, #E74C3C 100%);
+    box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
+}
+
+.product-badge.new {
+    background: linear-gradient(135deg, #28A745 0%, #20C997 100%);
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+}
+
+.product-badge.sale {
+    background: linear-gradient(135deg, #DC3545 0%, #C82333 100%);
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+}
+
+.product-badge.organic {
+    background: linear-gradient(135deg, #6F42C1 0%, #5A2D82 100%);
+    box-shadow: 0 2px 8px rgba(111, 66, 193, 0.3);
+}
+
+/* Product Meta - Rating & Stock */
+.product-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    font-size: 0.8rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.rating {
+    color: #f39c12;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.review-count {
+    color: #999;
+    font-size: 0.75rem;
+    margin-left: 0.25rem;
+}
+
+.stock-status {
+    color: #28a745;
+    font-weight: 600;
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+    background: rgba(40, 167, 69, 0.1);
+    border-radius: 12px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.stock-status.out-of-stock {
+    color: #dc3545;
+    background: rgba(220, 53, 69, 0.1);
+}
+
+.add-to-cart-btn {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2c3e50 100%);
+    color: white;
+    border: none;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    box-shadow: 0 4px 15px rgba(26, 54, 80, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.add-to-cart-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transition: left 0.5s;
+}
+
+.add-to-cart-btn:hover::before {
+    left: 100%;
+}
+
+.add-to-cart-btn:hover {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(26, 54, 80, 0.4);
+}
+
+.view-details-btn {
+    background: transparent;
+    color: #666;
+    border: 2px solid #e9ecef;
+    padding: 0.875rem 1.5rem;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.view-details-btn:hover {
+    background: #f8f9fa;
+    border-color: #8B4513;
+    color: #8B4513;
+    transform: translateY(-1px);
+}
+
+/* Mobile Sticky Add to Cart */
+@media (max-width: 599px) {
+    .product-actions {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 1rem;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+        z-index: 100;
+        gap: 0.75rem;
+        flex-direction: row;
+    }
+    
+    .add-to-cart-btn {
+        flex: 1;
+        padding: 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .view-details-btn {
+        display: none;
+    }
+}
+
+.out-of-stock {
+    background: #95a5a6;
+    cursor: not-allowed;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.pagination button {
+    background: #ecf0f1;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.pagination button:hover:not(:disabled) {
+    background: #bdc3c7;
+}
+
+.pagination button.active {
+    background: #e74c3c;
+    color: white;
+}
+
+.pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.loading {
+    text-align: center;
+    padding: 3rem;
+    color: #666;
+}
+
+.no-products {
+    text-align: center;
+    padding: 3rem;
+    color: #666;
+}
+
+/* List View Styles */
+.products-grid.list-view {
+    grid-template-columns: 1fr;
+}
+
+.products-grid.list-view .product-card {
+    display: flex;
+    height: 200px;
+}
+
+.products-grid.list-view .product-image {
+    width: 200px;
+    height: 100%;
+}
+
+.products-grid.list-view .product-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .products-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .filters-sidebar {
+        position: static;
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .products-hero {
+        padding: 2rem 1rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .search-bar {
+        flex-direction: column;
+        border-radius: 10px;
+    }
+    
+    .search-bar input,
+    .search-bar button {
+        border-radius: 0;
+    }
+    
+    .products-container {
+        padding: 0 1rem;
+    }
+    
+    .products-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+}

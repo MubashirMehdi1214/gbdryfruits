@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Premium Dry Fruits & Nuts | GBDRYFRUITS</title>
+    <meta name="description" content="Contact GBDRYFRUITS for premium dry fruits and nuts in Pakistan. Get in touch for orders, inquiries, and customer support.">
+    <meta name="keywords" content="contact GBDRYFRUITS, dry fruits Pakistan, nuts supplier, customer support, order inquiry, contact us">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/premium-header.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Premium Header System -->
+    <header class="premium-header">
+        <!-- Trust Layer - Top Bar -->
+        <div class="trust-layer">
+            <div class="trust-bar">
+                <div class="trust-item">
+                    <span class="trust-icon">🚚</span>
+                    <span>Fast delivery available</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">📞</span>
+                    <span>WhatsApp Support</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>100% Natural | Freshly Packed | COD Available</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <div class="main-header">
+            <div class="main-header-container">
+                <!-- Brand Logo -->
+                <div class="brand-section">
+                    <a href="index.html" class="brand-logo">
+                        <img src="images/LOGO.png" alt="GBDRYFRUITS" height="50">
+                    </a>
+                </div>
+
+                <!-- Premium Search Bar -->
+                <div class="search-section">
+                    <div class="search-container">
+                        <input 
+                            type="text" 
+                            class="premium-search" 
+                            placeholder="Search almonds, cashews, pistachios…"
+                            id="premiumSearch"
+                        >
+                        <div class="search-suggestions" id="searchSuggestions">
+                            <!-- Suggestions will be dynamically inserted here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Header Actions -->
+                <div class="actions-section">
+                    <button class="action-btn" onclick="window.location.href='login.html'">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        Account
+                    </button>
+                    <button class="action-btn" onclick="toggleWishlist()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 0L3.16 4.61A5.5 5.5 0 0 0 5.05 5.05l1.42 1.42A5.5 5.5 0 0 0 7.78 0l1.06 1.06L12 5.67l1.06-1.06a5.5 5.5 0 0 0 7.78 0l1.42-1.42A5.5 5.5 0 0 0 5.05 5.05L12 5.67z"/>
+                        </svg>
+                        Wishlist
+                        <span class="wishlist-count" style="display: none;">0</span>
+                    </button>
+                    <button class="action-btn cart-trigger" onclick="toggleCart()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 2L6 9H3v2h3l2 7h10l2-7h3V9h-3l-2-7z"/>
+                            <circle cx="9" cy="21" r="1"/>
+                            <circle cx="20" cy="21" r="1"/>
+                        </svg>
+                        Cart
+                        <span class="cart-count-badge">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Bar -->
+        <div class="nav-bar">
+            <div class="nav-container">
+                <a href="index.html" class="nav-link">Home</a>
+                
+                <!-- Shop Mega Menu -->
+                <div class="nav-link mega-dropdown" onmouseenter="showMegaMenu('shop')" onmouseleave="hideMegaMenu('shop')">
+                    <span>Shop</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                    
+                    <!-- Mega Menu Content -->
+                    <div class="mega-menu" id="shopMegaMenu">
+                        <div class="mega-menu-container">
+                            <div class="mega-category">
+                                <h4 class="mega-category-title">Nuts</h4>
+                                <div class="mega-links">
+                                    <a href="products.html?category=almonds" class="mega-link">Almonds</a>
+                                    <a href="products.html?category=cashews" class="mega-link">Cashews</a>
+                                    <a href="products.html?category=welnuts" class="mega-link">Walnuts</a>
+                                    <a href="products.html?category=pistachios" class="mega-link">Pistachios</a>
+                                    <a href="products.html?category=mixed-nuts" class="mega-link">Mixed Nuts</a>
+                                </div>
+                            </div>
+                            <div class="mega-category">
+                                <h4 class="mega-category-title">Dry Fruits</h4>
+                                <div class="mega-links">
+                                    <a href="products.html?category=dates" class="mega-link">Dates</a>
+                                    <a href="products.html?category=apricots" class="mega-link">Apricots</a>
+                                    <a href="products.html?category=figs" class="mega-link">Figs</a>
+                                    <a href="products.html?category=raisins" class="mega-link">Raisins</a>
+                                </div>
+                            </div>
+                            <div class="mega-category">
+                                <h4 class="mega-category-title">Special Packs</h4>
+                                <div class="mega-links">
+                                    <a href="products.html?category=best-products" class="mega-link">Best Products</a>
+                                    <a href="products.html?category=combo-packs" class="mega-link">Combo Packs</a>
+                                    <a href="products.html?category=gift-packs" class="mega-link">Gift Packs</a>
+                                    <a href="products.html?category=corporate-gifting" class="mega-link">Corporate Gifting</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="products.html?category=best-sellers" class="nav-link">Best Products</a>
+                <a href="products.html?category=combo-packs" class="nav-link">Combo Packs</a>
+                <a href="products.html?category=gift-packs" class="nav-link">Corporate Gifting</a>
+                <a href="about.html" class="nav-link active">About Us</a>
+                <a href="contact.html" class="nav-link active">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <div class="mobile-header-container">
+            <a href="index.html" class="mobile-logo">
+                <img src="images/LOGO.png" alt="GBDRYFRUITS" height="40">
+            </a>
+            
+            <button class="hamburger-menu" onclick="toggleMobileMenu()">
+                <div class="hamburger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <div class="mobile-menu-content">
+            <div class="mobile-nav-section">
+                <h4 class="mobile-nav-title">Shop</h4>
+                <div class="mobile-nav-links">
+                    <a href="products.html?category=almonds" class="mobile-nav-link">Almonds</a>
+                    <a href="products.html?category=cashews" class="mobile-nav-link">Cashews</a>
+                    <a href="products.html?category=welnuts" class="mobile-nav-link">Walnuts</a>
+                    <a href="products.html?category=pistachios" class="mobile-nav-link">Pistachios</a>
+                    <a href="products.html?category=dates" class="mobile-nav-link">Dates</a>
+                    <a href="products.html?category=best-products" class="mobile-nav-link">Best Products</a>
+                    <a href="products.html?category=combo-packs" class="mobile-nav-link">Combo Packs</a>
+                </div>
+            </div>
+            <div class="mobile-nav-section">
+                <h4 class="mobile-nav-title">Account</h4>
+                <div class="mobile-nav-links">
+                    <a href="login.html" class="mobile-nav-link">My Account</a>
+                    <a href="#" class="mobile-nav-link" onclick="toggleWishlist()">Wishlist</a>
+                    <a href="#" class="mobile-nav-link" onclick="toggleCart()">Cart</a>
+                </div>
+            </div>
+            <div class="mobile-search-section">
+                <input type="text" class="mobile-search" placeholder="Search products...">
+            </div>
+            <div class="mobile-actions">
+                <button class="mobile-action-btn" onclick="window.location.href='products.html'">
+                    Browse Products
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main style="margin-top: 180px; padding: 2rem;">
+        <section style="max-width: 1200px; margin: 0 auto;">
+            <h1 style="text-align: center; color: var(--primary-green); margin-bottom: 2rem; font-size: 2.5rem;">
+                Contact GBDRYFRUITS
+            </h1>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+                <!-- Contact Form -->
+                <div style="background: var(--white); padding: 2rem; border-radius: 16px; box-shadow: 0 4px 16px rgba(139, 69, 19, 0.08);">
+                    <h2 style="color: var(--primary-green); margin-bottom: 1.5rem;">Get in Touch</h2>
+                    <p style="color: var(--dark-gray); line-height: 1.6; margin-bottom: 2rem;">
+                        We're here to help! Whether you have questions about our products, need assistance 
+                        with your order, or want to learn more about our premium dry fruits, don't hesitate to reach out.
+                    </p>
+                    
+                    <form id="contactForm" style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                            <div>
+                                <label style="display: block; color: var(--dark-gray); font-weight: 600; margin-bottom: 0.5rem;">Full Name</label>
+                                <input type="text" name="name" required style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-gray); border-radius: 8px; font-size: 1rem;">
+                            </div>
+                            <div>
+                                <label style="display: block; color: var(--dark-gray); font-weight: 600; margin-bottom: 0.5rem;">Email</label>
+                                <input type="email" name="email" required style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-gray); border-radius: 8px; font-size: 1rem;">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label style="display: block; color: var(--dark-gray); font-weight: 600; margin-bottom: 0.5rem;">Phone</label>
+                            <input type="tel" name="phone" style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-gray); border-radius: 8px; font-size: 1rem;">
+                        </div>
+                        
+                        <div>
+                            <label style="display: block; color: var(--dark-gray); font-weight: 600; margin-bottom: 0.5rem;">Subject</label>
+                            <select name="subject" style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-gray); border-radius: 8px; font-size: 1rem;">
+                                <option value="">Select a subject</option>
+                                <option value="order-inquiry">Order Inquiry</option>
+                                <option value="product-question">Product Question</option>
+                                <option value="bulk-order">Bulk Order</option>
+                                <option value="partnership">Partnership</option>
+                                <option value="feedback">Feedback</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label style="display: block; color: var(--dark-gray); font-weight: 600; margin-bottom: 0.5rem;">Message</label>
+                            <textarea name="message" required rows="5" style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-gray); border-radius: 8px; font-size: 1rem; resize: vertical; min-height: 120px;"></textarea>
+                        </div>
+                        
+                        <button type="submit" style="background: var(--primary-green); color: white; border: none; padding: 1rem 2rem; border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Contact Information -->
+                <div style="background: var(--white); padding: 2rem; border-radius: 16px; box-shadow: 0 4px 16px rgba(139, 69, 19, 0.08);">
+                    <h2 style="color: var(--primary-green); margin-bottom: 1.5rem;">Contact Information</h2>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;">
+                        <div>
+                            <h3 style="color: var(--primary-green); margin-bottom: 1rem;">📞 Phone Support</h3>
+                            <p style="color: var(--dark-gray); line-height: 1.6;">
+                                <strong style="color: var(--primary-green);">+92 311 518 9291</strong><br>
+                                Monday - Saturday: 9:00 AM - 7:00 PM<br>
+                                Sunday: 10:00 AM - 6:00 PM
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h3 style="color: var(--primary-green); margin-bottom: 1rem;">📧 Email Support</h3>
+                            <p style="color: var(--dark-gray); line-height: 1.6;">
+                                <strong style="color: var(--primary-green);">munashirmehdi@mail.com</strong><br>
+                                We respond within 24 hours
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;">
+                        <div>
+                            <h3 style="color: var(--primary-green); margin-bottom: 1rem;">🏢 Office Address</h3>
+                            <p style="color: var(--dark-gray); line-height: 1.6;">
+                                GBDRYFRUITS Headquarters<br>
+                                123 Commercial Street, Block A<br>
+                                Karachi, Pakistan 75000
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h3 style="color: var(--primary-green); margin-bottom: 1rem;">⏰ Business Hours</h3>
+                            <p style="color: var(--dark-gray); line-height: 1.6;">
+                                Monday - Saturday: 9:00 AM - 7:00 PM<br>
+                                Sunday: 10:00 AM - 6:00 PM
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 GBDRYFRUITS. All rights reserved.</p>
+    </footer>
+
+    <script src="js/premium-header.js"></script>
+    <script src="js/premium-cart.js"></script>
+    <script>
+        // Contact form handler
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(e.target);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                subject: formData.get('subject'),
+                message: formData.get('message')
+            };
+            
+            // Simple validation
+            if (!data.name || !data.email || !data.message) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // Show success message (in real app, this would send to backend)
+            alert('Thank you for contacting us! We will get back to you within 24 hours.');
+            
+            // Reset form
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>

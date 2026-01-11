@@ -1,0 +1,7 @@
+PS C:\Users\hp\Desktop\Website\backend> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+PS C:\Users\hp\Desktop\Website\backend> cd C:\Users\hp\Desktop\Website\backend
+PS C:\Users\hp\Desktop\Website\backend> npm start
+
+
+PS C:\Users\hp\Desktop\Website\frontend> cd c:\Users\hp\Desktop\Website\frontend
+PS C:\Users\hp\Desktop\Website\frontend> python -m http.server 3000

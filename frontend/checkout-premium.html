@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout - GB Dry Fruits Premium</title>
+    <meta name="description" content="Secure checkout with multiple payment options. COD, JazzCash, EasyPaisa, Stripe, PayPal accepted.">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2D5016',
+                        secondary: '#8B4513',
+                        accent: '#D4A574',
+                        cream: '#FAF7F0',
+                        success: '#27AE60',
+                        warning: '#F39C12',
+                        danger: '#E74C3C'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- External Libraries -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AU4Hk1n6v6GjT3Q9ZfK1s1l-1w1tHzv&currency=PKR"></script>
+    
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #FAF7F0 0%, #F5F0E6 100%);
+        }
+        
+        /* GLOBAL ICON CONSTRAINTS */
+        svg, img, i, .icon {
+            max-width: 24px !important;
+            height: auto !important;
+            width: auto !important;
+            object-fit: contain;
+        }
+        
+        .icon-small {
+            max-width: 18px !important;
+            height: auto !important;
+        }
+        
+        .icon-large {
+            max-width: 32px !important;
+            height: auto !important;
+        }
+        
+        /* PAYMENT ICONS */
+        .payment-icon {
+            width: 40px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        /* STEP INDICATORS */
+        .step-indicator {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .step-indicator.active {
+            background: linear-gradient(135deg, #2D5016 0%, #1a3408 100%);
+            box-shadow: 0 4px 12px rgba(45, 80, 22, 0.3);
+        }
+        
+        .step-line {
+            height: 2px;
+            background: #e5e7eb;
+            flex: 1;
+        }
+        
+        .step-line.active {
+            background: linear-gradient(90deg, #2D5016 0%, #27AE60 100%);
+        }
+        
+        /* CARD STYLING */
+        .checkout-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f3f4f6;
+        }
+        
+        .form-input {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 15px;
+            transition: all 0.2s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #2D5016;
+            box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #2D5016 0%, #1a3408 100%);
+            color: white;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(45, 80, 22, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(45, 80, 22, 0.4);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #6b7280;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            border: 1px solid #e5e7eb;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
+        }
+        
+        /* PAYMENT GRID */
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        
+        .payment-option {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .payment-option:hover {
+            border-color: #2D5016;
+            box-shadow: 0 8px 25px rgba(45, 80, 22, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .payment-option.selected {
+            border-color: #2D5016;
+            background: linear-gradient(135deg, #FAF7F0 0%, #F5F0E6 100%);
+            box-shadow: 0 4px 12px rgba(45, 80, 22, 0.1);
+        }
+        
+        /* STICKY SUMMARY */
+        .sticky-summary {
+            position: sticky;
+            top: 20px;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .checkout-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .sticky-summary {
+                position: relative;
+                top: 0;
+            }
+            
+            .payment-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- SSL Security Banner -->
+    <div class="bg-gradient-to-r from-green-600 to-green-700 text-white py-3">
+        <div class="container mx-auto px-4 flex items-center justify-center">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 1.971 0 3.212-2.206 4.815-4.156 4.815a2.007 2.007 0 01-1.447-.623C8.923 8.8 8.022 8.5 7 8.5c-3.314 0-6 2.686-6 6 0 2.651 1.732 4.9 4.142 5.683a2.007 2.007 0 011.447-.623c1.95 0 4.156 1.603 4.156 4.815 0 1.65-.056 3.321-.166 1.971z" clip-rule="evenodd"/>
+            </svg>
+            <span class="font-semibold">🔒 SECURE SSL ENCRYPTED CHECKOUT - 256-BIT ENCRYPTION</span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <img src="images/LOGO.png" alt="GB Dry Fruits" class="h-8 w-auto mr-3">
+                    <span class="text-xl font-bold text-gray-900">GB Dry Fruits</span>
+                </div>
+                <div class="flex items-center space-x-6 text-sm text-gray-600">
+                    <div class="flex items-center">
+                        <svg class="w-4 h-4 mr-1 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8.586 10l1.293 1.293a1 1 0 001.414-1.414l-2-2z" clip-rule="evenodd"/>
+                        </svg>
+                        100% Secure
+                    </div>
+                    <div class="flex items-center">
+                        <svg class="w-4 h-4 mr-1 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/>
+                        </svg>
+                        Fast Delivery
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Progress Steps -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between max-w-3xl mx-auto">
+                <div class="flex items-center">
+                    <div class="step-indicator active" id="step1">1</div>
+                    <div class="ml-4">
+                        <div class="font-semibold text-gray-900">Shipping</div>
+                        <div class="text-sm text-gray-600">Delivery address</div>
+                    </div>
+                </div>
+                <div class="step-line active"></div>
+                <div class="flex items-center">
+                    <div class="step-indicator bg-gray-200 text-gray-500" id="step2">2</div>
+                    <div class="ml-4">
+                        <div class="font-semibold text-gray-500">Payment</div>
+                        <div class="text-sm text-gray-500">Choose method</div>
+                    </div>
+                </div>
+                <div class="step-line"></div>
+                <div class="flex items-center">
+                    <div class="step-indicator bg-gray-200 text-gray-500" id="step3">3</div>
+                    <div class="ml-4">
+                        <div class="font-semibold text-gray-500">Review</div>
+                        <div class="text-sm text-gray-500">Confirm order</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checkout Grid -->
+        <div class="checkout-grid grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Left Column: Multi-Step Form -->
+            <div class="lg:col-span-2">
+                <!-- Step 1: Shipping -->
+                <div id="shippingStep" class="checkout-card p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Shipping Information</h2>
+                    
+                    <form id="shippingForm" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                                <input type="text" name="firstName" required class="form-input w-full" placeholder="John">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                                <input type="text" name="lastName" required class="form-input w-full" placeholder="Doe">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                            <input type="email" name="email" required class="form-input w-full" placeholder="john.doe@example.com">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                            <div class="flex gap-2">
+                                <select name="countryCode" class="form-input flex-shrink-0">
+                                    <option value="+92">+92 (PK)</option>
+                                    <option value="+1">+1 (US)</option>
+                                    <option value="+44">+44 (UK)</option>
+                                </select>
+                                <input type="tel" name="phone" required class="form-input flex-1" placeholder="300 1234567">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Complete Address</label>
+                            <textarea name="address" rows="3" required class="form-input w-full" placeholder="House #, Street, Area"></textarea>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">City</label>
+                                <select name="city" required class="form-input w-full" id="citySelect">
+                                    <option value="">Select City</option>
+                                    <option value="karachi">Karachi</option>
+                                    <option value="lahore">Lahore</option>
+                                    <option value="islamabad">Islamabad</option>
+                                    <option value="rawalpindi">Rawalpindi</option>
+                                    <option value="faisalabad">Faisalabad</option>
+                                    <option value="multan">Multan</option>
+                                    <option value="peshawar">Peshawar</option>
+                                    <option value="quetta">Quetta</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Postal Code</label>
+                                <input type="text" name="postalCode" class="form-input w-full" placeholder="74000">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Delivery Instructions</label>
+                                <input type="text" name="instructions" class="form-input w-full" placeholder="Near landmark">
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-end mt-8">
+                            <button type="button" onclick="proceedToPayment()" class="btn-primary">
+                                Continue to Payment →
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Step 2: Payment (Hidden Initially) -->
+                <div id="paymentStep" class="checkout-card p-8 hidden">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Choose Payment Method</h2>
+                    
+                    <div class="space-y-8">
+                        <!-- Cash on Delivery -->
+                        <div class="payment-option" onclick="selectPaymentMethod('cod')">
+                            <div class="payment-icon">
+                                <span class="text-2xl">💵</span>
+                            </div>
+                            <div class="mt-4">
+                                <h3 class="font-bold text-gray-900">Cash on Delivery</h3>
+                                <p class="text-sm text-gray-600">Pay when you receive your order</p>
+                                <div class="flex items-center mt-2">
+                                    <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8.586 10l1.293 1.293a1 1 0 001.414-1.414l-2-2z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-sm font-medium text-green-600">Available in your city</span>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-2xl font-bold text-green-600">FREE</span>
+                            </div>
+                        </div>
+
+                        <!-- Pakistani Digital Wallets -->
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Pakistani Digital Wallets</h3>
+                            <div class="payment-grid">
+                                <div class="payment-option" onclick="selectPaymentMethod('jazzcash')">
+                                    <div class="payment-icon bg-blue-600">
+                                        <span class="text-white font-bold">JC</span>
+                                    </div>
+                                    <div class="mt-3">
+                                        <h4 class="font-semibold text-gray-900">JazzCash</h4>
+                                        <p class="text-sm text-gray-600">Instant payment</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="payment-option" onclick="selectPaymentMethod('easypaisa')">
+                                    <div class="payment-icon bg-green-600">
+                                        <span class="text-white font-bold">EP</span>
+                                    </div>
+                                    <div class="mt-3">
+                                        <h4 class="font-semibold text-gray-900">EasyPaisa</h4>
+                                        <p class="text-sm text-gray-600">Quick & easy</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="payment-option" onclick="selectPaymentMethod('meezan')">
+                                    <div class="payment-icon bg-indigo-600">
+                                        <span class="text-white font-bold">MZ</span>
+                                    </div>
+                                    <div class="mt-3">
+                                        <h4 class="font-semibold text-gray-900">Meezan Bank</h4>
+                                        <p class="text-sm text-gray-600">Islamic banking</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- International Cards -->
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">International Cards</h3>
+                            <div class="payment-grid">
+                                <div class="payment-option" onclick="selectPaymentMethod('visa')">
+                                    <div class="payment-icon bg-blue-700">
+                                        <span class="text-white font-bold">VISA</span>
+                                    </div>
+                                    <div class="mt-3">
+                                        <h4 class="font-semibold text-gray-900">Visa Card</h4>
+                                        <p class="text-sm text-gray-600">Debit/Credit</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="payment-option" onclick="selectPaymentMethod('mastercard')">
+                                    <div class="payment-icon bg-red-600">
+                                        <span class="text-white font-bold">MC</span>
+                                    </div>
+                                    <div class="mt-3">
+                                        <h4 class="font-semibold text-gray-900">MasterCard</h4>
+                                        <p class="text-sm text-gray-600">Debit/Credit</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="payment-option" onclick="selectPaymentMethod('stripe')">
+                                    <div class="payment-icon bg-purple-600">
+                                        <span class="text-white font-bold">S</span>
+                                    </div>
+                                    <div class="mt-3">
+                                        <h4 class="font-semibold text-gray-900">Stripe</h4>
+                                        <p class="text-sm text-gray-600">Cards & Apple Pay</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="payment-option" onclick="selectPaymentMethod('paypal')">
+                                    <div class="payment-icon bg-blue-800">
+                                        <span class="text-white font-bold">PP</span>
+                                    </div>
+                                    <div class="mt-3">
+                                        <h4 class="font-semibold text-gray-900">PayPal</h4>
+                                        <p class="text-sm text-gray-600">Global wallet</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between mt-8">
+                        <button type="button" onclick="goBackToShipping()" class="btn-secondary">
+                            ← Back to Shipping
+                        </button>
+                        <button type="button" onclick="proceedToReview()" class="btn-primary">
+                            Continue to Review →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Review (Hidden Initially) -->
+                <div id="reviewStep" class="checkout-card p-8 hidden">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Review Your Order</h2>
+                    
+                    <div class="space-y-6">
+                        <!-- Order Items -->
+                        <div class="border border-gray-200 rounded-lg p-6">
+                            <h3 class="font-semibold text-gray-900 mb-4">Order Summary</h3>
+                            <div id="reviewOrderItems" class="space-y-3">
+                                <!-- Order items will be inserted here -->
+                            </div>
+                        </div>
+                        
+                        <!-- Shipping Details -->
+                        <div class="border border-gray-200 rounded-lg p-6">
+                            <h3 class="font-semibold text-gray-900 mb-4">Shipping Details</h3>
+                            <div id="reviewShippingDetails" class="space-y-2 text-sm">
+                                <!-- Shipping details will be inserted here -->
+                            </div>
+                        </div>
+                        
+                        <!-- Trust Badges -->
+                        <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                            <div class="flex items-center justify-center space-x-6 text-sm">
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8.586 10l1.293 1.293a1 1 0 001.414-1.414l-2-2z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="font-medium text-green-600">256-bit SSL Encryption</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                                        <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 1 1 0 011 1v8a2 2 0 01-2 2H6a2 2 0 01-2-2V5a3 3 0 013-3h4a3 3 0 013 3v8a3 3 0 01-3 3H6a3 3 0 01-3-3V5z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="font-medium text-green-600">Fraud Protection</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/>
+                                    </svg>
+                                    <span class="font-medium text-green-600">Money Back Guarantee</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between mt-8">
+                            <button type="button" onclick="goBackToPayment()" class="btn-secondary">
+                                ← Back to Payment
+                            </button>
+                            <button type="button" onclick="placeOrder()" class="btn-primary">
+                                Place Order ✓
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Order Summary -->
+            <div class="lg:col-span-1">
+                <div class="sticky-summary checkout-card p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-6">Order Summary</h3>
+                    
+                    <!-- Cart Items Summary -->
+                    <div id="sidebarOrderItems" class="space-y-4 mb-6">
+                        <!-- Order items will be inserted here -->
+                    </div>
+                    
+                    <!-- Price Breakdown -->
+                    <div class="border-t border-gray-200 pt-4 space-y-3">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Subtotal</span>
+                            <span class="font-medium" id="sidebarSubtotal">Rs. 0</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Shipping</span>
+                            <span class="font-medium text-green-600" id="sidebarShipping">FREE</span>
+                        </div>
+                        <div class="flex justify-between text-sm" id="discountRow" style="display: none;">
+                            <span class="text-gray-600">Discount</span>
+                            <span class="font-medium text-red-600" id="sidebarDiscount">-Rs. 0</span>
+                        </div>
+                        <div class="border-t border-gray-200 pt-3">
+                            <div class="flex justify-between">
+                                <span class="text-lg font-bold text-gray-900">Total</span>
+                                <span class="text-xl font-bold text-green-600" id="sidebarTotal">Rs. 0</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Trust Indicators -->
+                    <div class="mt-6 space-y-3">
+                        <div class="flex items-center justify-center text-xs text-gray-600">
+                            <svg class="w-4 h-4 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0h2a1 1 0 100-2H5a5 5 0 0110 0v2a2 2 0 01-2 2H5a2 2 0 01-2-2z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>Secure SSL Certificate</span>
+                        </div>
+                        <div class="flex items-center justify-center text-xs text-gray-600">
+                            <svg class="w-4 h-4 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 000-3 0z"/>
+                            </svg>
+                            <span>Verified Merchant</span>
+                        </div>
+                        <div class="flex items-center justify-center text-xs text-gray-600">
+                            <svg class="w-4 h-4 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M4 4a2 2 0 012-2h5L2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/>
+                            </svg>
+                            <span>Cash on Delivery</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="container mx-auto px-4 py-6">
+            <div class="text-center text-sm text-gray-600">
+                <p>&copy; 2024 GB Dry Fruits. All rights reserved.</p>
+                <div class="flex items-center justify-center space-x-4 mt-2">
+                    <span>Powered by Secure Payment Gateway</span>
+                    <span>•</span>
+                    <span>256-bit SSL Encryption</span>
+                    <span>•</span>
+                    <span>Fraud Protection</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl p-8 flex flex-col items-center space-y-4">
+            <div class="w-12 h-12 border-4 border-green-600 border-t-transparent rounded-full animate-spin"></div>
+            <p class="text-gray-700 font-medium">Processing your payment...</p>
+            <p class="text-sm text-gray-500">Please do not close this window</p>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 0l-8 8a1 1 0 101.414 1.414L8.586 10l1.293 1.293a1 1 0 001.414-1.414l8-8z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">Order Placed Successfully!</h3>
+                <p class="text-gray-600 mb-6">Your order has been confirmed. You will receive a confirmation email shortly.</p>
+                <div class="space-y-3">
+                    <div class="p-3 bg-gray-50 rounded-lg">
+                        <p class="text-sm text-gray-600">Order Number</p>
+                        <p class="font-bold text-lg" id="orderNumber">#GBDRY-000000</p>
+                    </div>
+                    <div id="whatsappButton" class="hidden">
+                        <button onclick="sendWhatsAppConfirmation()" class="w-full px-4 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-colors">
+                            Send WhatsApp Confirmation
+                        </button>
+                    </div>
+                    <button onclick="closeSuccessModal()" class="w-full px-4 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-colors">
+                        Continue Shopping
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let currentStep = 1;
+        let selectedPaymentMethod = null;
+        let orderData = {
+            shipping: {},
+            payment: {},
+            items: [],
+            totals: {}
+        };
+
+        // Initialize Stripe
+        const stripe = Stripe('pk_test_51234567890abcdef123456789');
+
+        // Load cart data from localStorage
+        function loadCartData() {
+            const cartData = localStorage.getItem('cart') || localStorage.getItem('cartData');
+            if (cartData) {
+                orderData.items = JSON.parse(cartData);
+                updateOrderSummary();
+                updateSidebarItems();
+            }
+        }
+
+        // Update order summary
+        function updateOrderSummary() {
+            let subtotal = 0;
+            const itemsHtml = orderData.items.map(item => {
+                subtotal += item.price * item.quantity;
+                return `
+                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                        <div class="flex items-center space-x-3">
+                            <img src="${item.image}" alt="${item.name}" class="w-12 h-12 object-cover rounded">
+                            <div>
+                                <p class="font-medium text-gray-900">${item.name}</p>
+                                <p class="text-sm text-gray-600">${item.weight} × ${item.quantity}</p>
+                            </div>
+                        </div>
+                        <span class="font-semibold">Rs. ${(item.price * item.quantity).toLocaleString()}</span>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('reviewOrderItems').innerHTML = itemsHtml;
+            document.getElementById('sidebarOrderItems').innerHTML = itemsHtml;
+            
+            orderData.totals.subtotal = subtotal;
+            orderData.totals.shipping = subtotal >= 1000 ? 0 : 150;
+            orderData.totals.total = subtotal + orderData.totals.shipping;
+            
+            updateTotals();
+        }
+
+        // Update totals display
+        function updateTotals() {
+            const subtotalElement = document.getElementById('sidebarSubtotal');
+            const shippingElement = document.getElementById('sidebarShipping');
+            const totalElement = document.getElementById('sidebarTotal');
+            
+            if (subtotalElement) subtotalElement.textContent = `Rs. ${orderData.totals.subtotal.toLocaleString()}`;
+            if (shippingElement) shippingElement.textContent = orderData.totals.shipping === 0 ? 'FREE' : `Rs. ${orderData.totals.shipping.toLocaleString()}`;
+            if (totalElement) totalElement.textContent = `Rs. ${orderData.totals.total.toLocaleString()}`;
+        }
+
+        // Proceed to payment
+        function proceedToPayment() {
+            const form = document.getElementById('shippingForm');
+            const formData = new FormData(form);
+            
+            orderData.shipping = {
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                email: formData.get('email'),
+                phone: formData.get('countryCode') + ' ' + formData.get('phone'),
+                address: formData.get('address'),
+                city: formData.get('city'),
+                postalCode: formData.get('postalCode'),
+                instructions: formData.get('instructions')
+            };
+            
+            // Update step indicators
+            updateStep(2);
+            
+            // Show payment step
+            document.getElementById('shippingStep').classList.add('hidden');
+            document.getElementById('paymentStep').classList.remove('hidden');
+        }
+
+        // Select payment method
+        function selectPaymentMethod(method) {
+            selectedPaymentMethod = method;
+            
+            // Update UI
+            document.querySelectorAll('.payment-option').forEach(el => {
+                el.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+        }
+
+        // Proceed to review
+        function proceedToReview() {
+            if (!selectedPaymentMethod) {
+                alert('Please select a payment method');
+                return;
+            }
+            
+            orderData.payment.method = selectedPaymentMethod;
+            
+            // Update step indicators
+            updateStep(3);
+            
+            // Show review step
+            document.getElementById('paymentStep').classList.add('hidden');
+            document.getElementById('reviewStep').classList.remove('hidden');
+            
+            // Update review sections
+            updateReviewSections();
+        }
+
+        // Update review sections
+        function updateReviewSections() {
+            // Update shipping details
+            const shippingHtml = `
+                <p><strong>Name:</strong> ${orderData.shipping.firstName} ${orderData.shipping.lastName}</p>
+                <p><strong>Email:</strong> ${orderData.shipping.email}</p>
+                <p><strong>Phone:</strong> ${orderData.shipping.phone}</p>
+                <p><strong>Address:</strong> ${orderData.shipping.address}</p>
+                <p><strong>City:</strong> ${orderData.shipping.city}</p>
+                <p><strong>Postal Code:</strong> ${orderData.shipping.postalCode}</p>
+            `;
+            document.getElementById('reviewShippingDetails').innerHTML = shippingHtml;
+        }
+
+        // Navigation functions
+        function goBackToShipping() {
+            updateStep(1);
+            document.getElementById('paymentStep').classList.add('hidden');
+            document.getElementById('shippingStep').classList.remove('hidden');
+        }
+
+        function goBackToPayment() {
+            updateStep(2);
+            document.getElementById('reviewStep').classList.add('hidden');
+            document.getElementById('paymentStep').classList.remove('hidden');
+        }
+
+        // Update step indicators
+        function updateStep(step) {
+            currentStep = step;
+            
+            for (let i = 1; i <= 3; i++) {
+                const stepEl = document.getElementById(`step${i}`);
+                const lineEl = stepEl.parentElement.nextElementSibling;
+                
+                if (i <= step) {
+                    stepEl.classList.add('active');
+                    stepEl.classList.remove('bg-gray-200', 'text-gray-500');
+                    stepEl.classList.add('text-white');
+                    
+                    if (lineEl && lineEl.classList.contains('step-line')) {
+                        lineEl.classList.add('active');
+                    }
+                } else {
+                    stepEl.classList.remove('active');
+                    stepEl.classList.add('bg-gray-200', 'text-gray-500');
+                    stepEl.classList.remove('text-white');
+                    
+                    if (lineEl && lineEl.classList.contains('step-line')) {
+                        lineEl.classList.remove('active');
+                    }
+                }
+                
+                // Update text colors
+                const textContainer = stepEl.nextElementSibling;
+                if (textContainer) {
+                    const texts = textContainer.querySelectorAll('div');
+                    texts.forEach(text => {
+                        if (i <= step) {
+                            text.classList.remove('text-gray-500');
+                            text.classList.add('text-gray-900');
+                        } else {
+                            text.classList.remove('text-gray-900');
+                            text.classList.add('text-gray-500');
+                        }
+                    });
+                }
+            }
+        }
+
+        // Place order
+        function placeOrder() {
+            showLoading();
+            
+            // Simulate order processing
+            setTimeout(() => {
+                hideLoading();
+                showSuccessModal();
+                
+                // Clear cart
+                localStorage.removeItem('cart');
+                localStorage.removeItem('cartData');
+                
+                // Update cart count
+                document.querySelectorAll('.cart-count').forEach(el => el.textContent = '0');
+                
+                // Generate order number
+                const orderNumber = 'GBDRY-' + Date.now().toString().slice(-6);
+                document.querySelector('#orderNumber p:last-child').textContent = orderNumber;
+                
+                // Show WhatsApp button for COD
+                if (selectedPaymentMethod === 'cod') {
+                    document.getElementById('whatsappButton').classList.remove('hidden');
+                }
+                
+            }, 2000);
+        }
+
+        // Loading functions
+        function showLoading() {
+            document.getElementById('loadingOverlay').classList.remove('hidden');
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').classList.add('hidden');
+        }
+
+        // Success modal functions
+        function showSuccessModal() {
+            document.getElementById('successModal').classList.remove('hidden');
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.add('hidden');
+            window.location.href = 'index.html';
+        }
+
+        // WhatsApp confirmation
+        function sendWhatsAppConfirmation() {
+            const orderNumber = document.querySelector('#orderNumber p:last-child').textContent;
+            const message = `Hello! I've placed order ${orderNumber} for ${orderData.totals.total} PKR. Please confirm delivery details. Thank you!`;
+            const whatsappUrl = `https://wa.me/923001234567?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCartData();
+        });
+    </script>
+</body>
+</html>

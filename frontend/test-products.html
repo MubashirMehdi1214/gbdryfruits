@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Products</title>
+</head>
+<body>
+    <h1>Products Test Page</h1>
+    <div id="testResults"></div>
+    
+    <script>
+        // Test the products logic directly
+        const imageFiles = [
+            'Dates Dates (Medjool).png',
+            'Dry Fruits Dried Apricots (Turkish).png', 
+            'Dry Fruits Dried Figs (Anjeer).png',
+            'Dry Fruits Raisins (Black Seedless).png',
+            'Mixed Dry Fruits Mixed Dry Fruits (Premium).png',
+            'Nuts with Shell Almonds (In Shell).png',
+            'Nuts with Shell Peanuts (Roasted & Salted).png',
+            'Nuts with Shell Pistachios (Salted).png',
+            'Nuts without Shell Pine Nuts (Chilgoza).png',
+            'Nuts without Shell Premium Almonds (California).png',
+            'Nuts without Shell Premium Cashews (W240).png',
+            'Nuts without Shell Walnuts (Kashmiri).png',
+            'Seeds & Cereals Sunflower Seeds.png'
+        ];
+        
+        let products = imageFiles.map((filename, index) => {
+            let name = filename.replace(/\.(png|jpg|jpeg)$/i, '');
+            name = name.replace(/^images\//i, '');
+            
+            let category = 'other';
+            let cleanName = name;
+            let weight = '500g';
+            let price = 800;
+            
+            if (name.includes('Dates')) {
+                category = 'dry-fruits';
+                cleanName = 'Dates (Medjool)';
+                weight = '1kg';
+                price = 800;
+            } else if (name.includes('Apricots')) {
+                category = 'dry-fruits';
+                cleanName = 'Dried Apricots (Turkish)';
+                weight = '500g';
+                price = 900;
+            } else if (name.includes('Figs')) {
+                category = 'dry-fruits';
+                cleanName = 'Dried Figs (Anjeer)';
+                weight = '500g';
+                price = 950;
+            } else if (name.includes('Raisins')) {
+                category = 'dry-fruits';
+                cleanName = 'Raisins (Black Seedless)';
+                weight = '500g';
+                price = 750;
+            } else if (name.includes('Mixed Dry Fruits')) {
+                category = 'dry-fruits';
+                cleanName = 'Mixed Dry Fruits (Premium)';
+                weight = '1kg';
+                price = 1200;
+            } else if (name.includes('Almonds (In Shell)')) {
+                category = 'nuts';
+                cleanName = 'Almonds (In Shell)';
+                weight = '500g';
+                price = 1200;
+            } else if (name.includes('Peanuts')) {
+                category = 'nuts';
+                cleanName = 'Peanuts (Roasted & Salted)';
+                weight = '500g';
+                price = 700;
+            } else if (name.includes('Pistachios')) {
+                category = 'nuts';
+                cleanName = 'Pistachios (Salted)';
+                weight = '500g';
+                price = 1800;
+            } else if (name.includes('Pine Nuts')) {
+                category = 'nuts';
+                cleanName = 'Pine Nuts (Chilgoza)';
+                weight = '500g';
+                price = 1100;
+            } else if (name.includes('Premium Almonds')) {
+                category = 'nuts';
+                cleanName = 'Premium Almonds (California)';
+                weight = '500g';
+                price = 1500;
+            } else if (name.includes('Premium Cashews')) {
+                category = 'nuts';
+                cleanName = 'Premium Cashews (W240)';
+                weight = '500g';
+                price = 1600;
+            } else if (name.includes('Walnuts')) {
+                category = 'nuts';
+                cleanName = 'Walnuts (Kashmiri)';
+                weight = '500g';
+                price = 1400;
+            } else if (name.includes('Sunflower Seeds')) {
+                category = 'seeds';
+                cleanName = 'Sunflower Seeds';
+                weight = '500g';
+                price = 600;
+            }
+            
+            return {
+                id: filename.replace(/\.(png|jpg|jpeg)$/i, '').replace(/[^a-zA-Z0-9]/g, '-').toLowerCase(),
+                name: cleanName,
+                category: category,
+                price: price,
+                weight: weight,
+                image: 'images/' + filename,
+                description: `Premium quality ${cleanName.toLowerCase()}`,
+                inStock: true,
+                rating: 4.0 + (Math.random() * 0.9),
+                reviews: Math.floor(Math.random() * 200) + 50
+            };
+        });
+        
+        console.log('Test - Created products:', products.length, products);
+        
+        // Display results
+        const resultsDiv = document.getElementById('testResults');
+        resultsDiv.innerHTML = `
+            <h2>Found ${products.length} Products:</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                ${products.map(product => `
+                    <div style="border: 1px solid #ccc; padding: 20px; border-radius: 8px;">
+                        <h3>${product.name}</h3>
+                        <p><strong>Price:</strong> Rs.${product.price}</p>
+                        <p><strong>Weight:</strong> ${product.weight}</p>
+                        <p><strong>Category:</strong> ${product.category}</p>
+                        <p><strong>Image:</strong> ${product.image}</p>
+                        <img src="${product.image}" style="max-width: 100px; height: auto;" onerror="this.style.display='none'">
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    </script>
+</body>
+</html>

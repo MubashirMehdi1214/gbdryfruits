@@ -1,0 +1,195 @@
+{% comment %}
+  Premium Product Grid - Luxury Dry Fruits E-commerce
+  Perfect Alignment: Desktop 4, Tablet 2, Mobile 1
+{% endcomment %}
+
+<div class="collection-container">
+  {% if collection.handle %}
+    <div class="collection-header">
+      <h1 class="collection-title">{{ collection.title }}</h1>
+      {% if collection.description != blank %}
+        <p class="collection-description">{{ collection.description }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% comment %}
+    Filter and Sort Controls
+  {% endcomment %}
+  <div class="collection-controls">
+    <div class="results-count">
+      <span>{{ collection.products_count }}</span> products found
+    </div>
+    
+    <div class="sort-dropdown">
+      <label for="sort-by">Sort by:</label>
+      <select id="sort-by" class="sort-select">
+        <option value="manual">Featured</option>
+        <option value="price-ascending">Price: Low to High</option>
+        <option value="price-descending">Price: High to Low</option>
+        <option value="title-ascending">Name: A to Z</option>
+        <option value="created-descending">Newest First</option>
+        <option value="best-selling">Best Sellers</option>
+      </select>
+    </div>
+  </div>
+
+  {% comment %}
+    Premium Product Grid - Perfect Alignment
+  {% endcomment %}
+  <div class="products-grid">
+    {% for product in collection.products %}
+      <div class="product-card" data-product-id="{{ product.id }}">
+        
+        {% comment %}
+          Product Badges - NEW, BEST SELLER, SALE, ORGANIC
+        {% endcomment %}
+        {% if product.available == false %}
+          <div class="product-badge sold-out">Sold Out</div>
+        {% elsif product.tags contains 'new' %}
+          <div class="product-badge new">New</div>
+        {% elsif product.tags contains 'bestseller' %}
+          <div class="product-badge bestseller">Best Seller</div>
+        {% elsif product.compare_at_price > product.price %}
+          <div class="product-badge sale">Sale</div>
+        {% elsif product.tags contains 'organic' %}
+          <div class="product-badge organic">Organic</div>
+        {% endif %}
+
+        {% comment %}
+          Product Image - Perfect Fit
+        {% endcomment %}
+        <div class="product-image-container">
+          <a href="{{ product.url | within: collection }}" class="product-link">
+            {% if product.featured_image %}
+              <img 
+                src="{{ product.featured_image | img_url: '540x540' }}" 
+                alt="{{ product.featured_image.alt | default: product.title }}"
+                class="product-image"
+                loading="lazy"
+                width="540"
+                height="540"
+              >
+            {% else %}
+              <img 
+                src="{{ 'no-image.png' | asset_img_url: '540x540' }}" 
+                alt="{{ product.title }}"
+                class="product-image"
+                loading="lazy"
+                width="540"
+                height="540"
+              >
+            {% endif %}
+          </a>
+        </div>
+
+        {% comment %}
+          Product Information - Perfect Alignment
+        {% endcomment %}
+        <div class="product-info">
+          {% if product.type %}
+            <div class="product-category">{{ product.type | capitalize }}</div>
+          {% endif %}
+          
+          <h3 class="product-name">
+            <a href="{{ product.url | within: collection }}" class="product-link">
+              {{ product.title }}
+            </a>
+          </h3>
+
+          {% comment %}
+            Product Variants - First Available
+          {% endcomment %}
+          {% assign current_variant = product.selected_or_first_available_variant %}
+          
+          <div class="product-price">
+            <span class="current-price">{{ current_variant.price | money }}</span>
+            {% if current_variant.compare_at_price > current_variant.price %}
+              <span class="original-price">{{ current_variant.compare_at_price | money }}</span>
+            {% endif %}
+          </div>
+
+          {% comment %}
+            Product Weight/Size
+          {% endcomment %}
+          {% if product.metafields.custom.weight %}
+            <div class="product-weight">{{ product.metafields.custom.weight }}</div>
+          {% endif %}
+
+          {% comment %}
+            Product Rating (if using reviews app)
+          {% endcomment %}
+          {% if product.metafields.reviews.rating %}
+            <div class="product-rating">
+              <span class="stars">⭐ {{ product.metafields.reviews.rating }}</span>
+              <span class="review-count">({{ product.metafields.reviews.count }} reviews)</span>
+            </div>
+          {% endif %}
+
+          {% comment %}
+            Premium Action Buttons
+          {% endcomment %}
+          <div class="product-actions">
+            <form action="/cart/add" method="post" enctype="multipart/form-data" class="add-to-cart-form">
+              <input type="hidden" name="id" value="{{ current_variant.id }}">
+              <button 
+                type="submit" 
+                name="add"
+                class="add-to-cart-btn {% unless current_variant.available %}disabled{% endunless %}"
+                {% unless current_variant.available %}disabled="disabled"{% endunless %}
+              >
+                {% if current_variant.available %}
+                  🛒 Add to Cart
+                {% else %}
+                  ⏰ Out of Stock
+                {% endif %}
+              </button>
+            </form>
+            
+            <a href="{{ product.url | within: collection }}" class="view-details-btn">
+              👁️ Quick View
+            </a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% comment %}
+    Pagination
+  {% endcomment %}
+  {% if paginate.pages > 1 %}
+    <div class="collection-pagination">
+      {{ paginate | default_pagination }}
+    </div>
+  {% endif %}
+</div>
+
+{% comment %}
+  Schema for Customizer
+{% endcomment %}
+{% schema %}
+{
+  "name": "Premium Collection Grid",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_quick_view",
+      "label": "Enable quick view",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show product ratings",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

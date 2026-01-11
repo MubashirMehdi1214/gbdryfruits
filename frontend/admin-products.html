@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Products - GBDRYFRUITS</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">GBDRYFRUITS Admin</div>
+            <div class="nav-menu">
+                <a href="admin-simple.html">Dashboard</a>
+                <a href="admin-products.html" class="active">Products</a>
+                <a href="admin-orders.html">Orders</a>
+                <a href="admin-users.html">Users</a>
+            </div>
+            <div class="nav-actions">
+                <a href="#" onclick="logout()">Logout</a>
+            </div>
+        </nav>
+    </header>
+    <main class="admin-main">
+        <div class="admin-header">
+            <h1>Product Management</h1>
+            <button class="admin-btn" onclick="showAddProductModal()">Add New Product</button>
+        </div>
+        
+        <div class="admin-filters">
+            <input type="text" id="productSearch" placeholder="Search products...">
+            <select id="categoryFilter">
+                <option value="">All Categories</option>
+                <option value="Nuts with Shell">Nuts with Shell</option>
+                <option value="Nuts without Shell">Nuts without Shell</option>
+                <option value="Dry Fruits">Dry Fruits</option>
+                <option value="Mixed Dry Fruits">Mixed Dry Fruits</option>
+            </select>
+        </div>
+        
+        <div class="admin-table-container">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="productsTableBody">
+                    <!-- Products will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="pagination" id="adminPagination">
+            <!-- Pagination will be loaded here -->
+        </div>
+    </main>
+    
+    <!-- Add Product Modal -->
+    <div id="addProductModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="hideAddProductModal()">&times;</span>
+            <h2>Add New Product</h2>
+            <form id="addProductForm">
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="description" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select name="category" required>
+                        <option value="">Select Category</option>
+                        <option value="Nuts with Shell">Nuts with Shell</option>
+                        <option value="Nuts without Shell">Nuts without Shell</option>
+                        <option value="Dry Fruits">Dry Fruits</option>
+                        <option value="Mixed Dry Fruits">Mixed Dry Fruits</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Price</label>
+                    <input type="number" name="price" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Weight</label>
+                    <input type="text" name="weight" value="1kg">
+                </div>
+                <div class="form-group">
+                    <label>Stock Quantity</label>
+                    <input type="number" name="stockQuantity" value="100">
+                </div>
+                <div class="form-group">
+                    <label>Image URL</label>
+                    <input type="url" name="image">
+                </div>
+                <button type="submit" class="admin-btn">Add Product</button>
+            </form>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2024 GBDRYFRUITS. All rights reserved.</p>
+    </footer>
+    
+    <script src="js/admin.js"></script>
+</body>
+</html>

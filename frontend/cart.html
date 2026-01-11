@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - GBDRYFRUITS</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/cart.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="images/LOGO.png" alt="GBDRYFRUITS" class="logo-image">
+            </div>
+            <div class="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <a href="login.html" class="login-link">Login</a>
+                <a href="register.html" class="register-link">Register</a>
+                <a href="profile.html" class="profile-link" style="display: none;">Profile</a>
+                <a href="#" class="logout-link" onclick="authHelpers.logout()" style="display: none;">Logout</a>
+                <a href="cart.html" class="active">Cart (<span class="cart-count">0</span>)</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="cart-page">
+        <div class="cart-container">
+            <h1>Shopping Cart</h1>
+            
+            <div class="cart-content">
+                <div class="cart-items">
+                    <div id="cartItems">
+                        <!-- Cart items will be loaded here -->
+                    </div>
+                    
+                    <div class="cart-empty" id="cartEmpty" style="display: none;">
+                        <h3>Your cart is empty</h3>
+                        <p>Browse our premium dry fruits and add some items to your cart!</p>
+                        <a href="products.html" class="continue-shopping-btn">Continue Shopping</a>
+                    </div>
+                </div>
+                
+                <div class="cart-summary">
+                    <div class="summary-card">
+                        <h3>Order Summary</h3>
+                        
+                        <div class="summary-row">
+                            <label for="citySelect">Delivery City:</label>
+                            <select id="citySelect" onchange="updateCODCharges()" class="city-select">
+                                <option value="">Select City</option>
+                                <option value="karachi">Karachi (Free COD)</option>
+                                <option value="lahore">Lahore (Free COD)</option>
+                                <option value="islamabad">Islamabad (Rs.250 COD)</option>
+                                <option value="rawalpindi">Rawalpindi (Free COD)</option>
+                                <option value="faisalabad">Faisalabad (Free COD)</option>
+                                <option value="multan">Multan (Rs.100 COD)</option>
+                                <option value="peshawar">Peshawar (Rs.150 COD)</option>
+                                <option value="quetta">Quetta (Rs.200 COD)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="summary-row">
+                            <label for="paymentMethod">Payment Method:</label>
+                            <select id="paymentMethod" onchange="updateCODCharges()" class="payment-select">
+                                <option value="">Select Payment Method</option>
+                                <option value="Cash on Delivery">Cash on Delivery</option>
+                                <option value="JazzCash">JazzCash</option>
+                                <option value="EasyPaisa">EasyPaisa</option>
+                                <option value="Bank Transfer">Bank Transfer</option>
+                            </select>
+                        </div>
+                        
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span id="subtotal">Rs.0.00</span>
+                        </div>
+                        
+                        <div class="summary-row">
+                            <span>Shipping</span>
+                            <span id="shipping">Select payment method</span>
+                        </div>
+                        
+                        <div class="summary-row total">
+                            <span>Total</span>
+                            <span id="total">Rs.0.00</span>
+                        </div>
+                        
+                        <button id="checkoutBtn" class="checkout-btn" onclick="proceedToCheckout()">
+                            Proceed to Checkout
+                        </button>
+                        
+                        <a href="products.html" class="continue-shopping-btn">
+                            Continue Shopping
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 GBDRYFRUITS. All rights reserved.</p>
+    </footer>
+
+    <script src="js/mock-data.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js?v=1.1"></script>
+</body>
+</html>
