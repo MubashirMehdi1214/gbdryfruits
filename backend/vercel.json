@@ -1,18 +1,9 @@
 {
   "version": 2,
-  "buildCommand": "npm install && npm start",
-  "framework": null,
-  "functions": {
-    "directory": "api"
-  },
-  "routes": [
+  "builds": [
     {
-      "src": "/health",
-      "dest": "/api/health.js"
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "/server-prod.js"
+      "src": "server-prod.js",
+      "use": "@vercel/node"
     }
   ],
   "env": {
@@ -21,7 +12,7 @@
     "JWT_SECRET": "GbdryFruits_2024_SecureKey_Mubi@123",
     "FRONTEND_URL": "https://zingy-sunshine-d9919b.netlify.app",
     "SITE_URL": "https://zingy-sunshine-d9919b.netlify.app",
-    "API_URL": "https://gbdryfruits-hcjp.vercel.app",
+    "API_URL": "https://gbdryfruits-hcjp-m74nvf0hu-mubashirmehdi1214s-projects.vercel.app",
     "CONTACT_EMAIL": "munashirmehdi@gmail.com",
     "CONTACT_PHONE": "+92-311-5189291"
   }
