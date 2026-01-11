@@ -114,7 +114,7 @@ app.get('/', (req, res) => {
 });
 
 // 404 handler
-app.all('*', (req, res) => {
+app.use((req, res, next) => {
     res.status(404).json({
         success: false,
         message: 'Route not found'
