@@ -8,6 +8,12 @@ const rateLimit = require('express-rate-limit');
 // Load environment variables
 dotenv.config();
 
+// Debug: Check environment variables
+console.log('🔍 Debug - Environment Variables:');
+console.log('MONGODB_URI:', process.env.MONGODB_URI);
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('JWT_SECRET:', process.env.JWT_SECRET ? '***' : 'NOT SET');
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
