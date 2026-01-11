@@ -1,18 +1,13 @@
 {
-  "version": 3,
-  "builds": [
-    {
-      "src": "server-prod.js",
-      "use": "@vercel/node"
-    }
-  ],
+  "version": 2,
+  "buildCommand": "npm install && npm start",
+  "framework": null,
+  "functions": {
+    "directory": "api"
+  },
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/server-prod.js"
-    },
-    {
-      "src": "/(.*)",
       "dest": "/server-prod.js"
     }
   ],
