@@ -7,6 +7,10 @@
   },
   "routes": [
     {
+      "src": "/health",
+      "dest": "/api/health.js"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/server-prod.js"
     }
