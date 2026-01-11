@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server-prod.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/server-prod.js"
+    }
+  ],
+  "env": {
+    "MONGODB_URI": "@mongodb_uri",
+    "NODE_ENV": "@node_env",
+    "JWT_SECRET": "@jwt_secret",
+    "FRONTEND_URL": "@frontend_url",
+    "SITE_URL": "@site_url",
+    "API_URL": "@api_url",
+    "CONTACT_EMAIL": "@contact_email",
+    "CONTACT_PHONE": "@contact_phone"
+  }
+}
