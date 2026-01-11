@@ -1,5 +1,4 @@
 const nodemailer = require('nodemailer');
-const twilio = require('twilio');
 const Order = require('../models/Order');
 
 // Initialize email transporter
@@ -13,11 +12,11 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// Initialize Twilio for WhatsApp
-const twilioClient = twilio(
-    process.env.TWILIO_ACCOUNT_SID,
-    process.env.TWILIO_AUTH_TOKEN
-);
+// Initialize Twilio for WhatsApp (disabled for now)
+// const twilioClient = twilio(
+//     process.env.TWILIO_ACCOUNT_SID,
+//     process.env.TWILIO_AUTH_TOKEN
+// );
 
 // Email templates
 const getEmailTemplate = (type, data) => {
