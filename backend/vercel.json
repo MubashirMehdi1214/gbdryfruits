@@ -17,13 +17,13 @@
     }
   ],
   "env": {
-    "MONGODB_URI": "@mongodb_uri",
-    "NODE_ENV": "@node_env",
-    "JWT_SECRET": "@jwt_secret",
-    "FRONTEND_URL": "@frontend_url",
-    "SITE_URL": "@site_url",
-    "API_URL": "@api_url",
-    "CONTACT_EMAIL": "@contact_email",
-    "CONTACT_PHONE": "@contact_phone"
+    "MONGODB_URI": "mongodb+srv://gbdryfruits-admin:Mubi@123@gbdryfruits-cluster.xrkmz4c.mongodb.net/?appName=gbdryfruits-cluster",
+    "NODE_ENV": "production",
+    "JWT_SECRET": "GbdryFruits_2024_SecureKey_Mubi@123",
+    "FRONTEND_URL": "https://zingy-sunshine-d9919b.netlify.app",
+    "SITE_URL": "https://zingy-sunshine-d9919b.netlify.app",
+    "API_URL": "https://gbdryfruits-hcjp.vercel.app",
+    "CONTACT_EMAIL": "munashirmehdi@gmail.com",
+    "CONTACT_PHONE": "+92-311-5189291"
   }
 }
