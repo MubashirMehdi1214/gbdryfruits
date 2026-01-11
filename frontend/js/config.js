@@ -1,7 +1,7 @@
 // GBDRYFRUITS - Configuration
 window.CONFIG = {
     // API Configuration
-    API_URL: process.env.API_URL || 'https://gbdryfruits-api.onrender.com',
+    API_URL: process.env.API_URL || 'https://gbdryfruits-hcjp-m74nvf0hu-mubashirmehdi1214s-projects.vercel.app',
     LOCAL_API_URL: 'http://localhost:5000',
     
     // Environment Detection
