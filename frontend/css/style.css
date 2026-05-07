@@ -82,7 +82,7 @@ nav {
     text-align: center;
     position: relative;
     overflow: hidden;
-    min-height: 100vh;
+    min-height: 82vh;
     display: flex;
     align-items: center;
 }
@@ -371,6 +371,29 @@ nav {
     gap: 2.5rem;
     flex-wrap: wrap;
     margin-top: 3rem;
+}
+
+.scroll-cue {
+    margin: 1rem auto 0;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    color: rgba(255, 255, 255, 0.92);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.scroll-arrow {
+    font-size: 1.2rem;
+    animation: scrollArrowBounce 1.2s ease-in-out infinite;
+}
+
+@keyframes scrollArrowBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
 }
 
 .badge {
@@ -1269,6 +1292,7 @@ footer {
     
     #hero {
         padding: 4rem 1rem;
+        min-height: 72vh;
     }
     
     #hero h1 {
