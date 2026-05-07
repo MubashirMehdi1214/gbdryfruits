@@ -579,8 +579,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const categoryParam = urlParams.get('category');
         const activeCollection = document.getElementById('activeCollection');
 
-        if (!activeCollection) return;
-
         const categoryTitles = {
             'almonds': 'Almonds',
             'cashews': 'Cashews',
@@ -597,10 +595,24 @@ document.addEventListener('DOMContentLoaded', function() {
             'combo-packs': 'Combo Packs',
             'gift-packs': 'Gift Packs',
             'corporate-gifting': 'Corporate Gifting',
-            'best-products': 'All Collection'
+            'best-products': 'Nuts & Dry Fruits'
         };
 
-        activeCollection.textContent = categoryTitles[categoryParam] || 'All Collection';
+        const label = categoryTitles[categoryParam] || 'Nuts & Dry Fruits';
+
+        if (activeCollection) {
+            activeCollection.textContent = label;
+        }
+
+        const breadcrumbTitle = document.getElementById('breadcrumbTitle');
+        if (breadcrumbTitle) {
+            breadcrumbTitle.textContent = label;
+        }
+
+        const breadcrumbCurrent = document.getElementById('breadcrumbCurrent');
+        if (breadcrumbCurrent) {
+            breadcrumbCurrent.textContent = label;
+        }
     }
     
     // Display pagination
