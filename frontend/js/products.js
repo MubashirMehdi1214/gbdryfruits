@@ -53,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Load products
         loadProducts();
+        updateActiveCollectionLabel();
         
         // Event listeners
         searchBtn.addEventListener('click', handleSearch);
@@ -449,6 +450,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         displayProducts(products);
+        updateResultMeta(products.length);
         displayPagination({
             page: currentPage,
             pages: Math.ceil(products.length / 12),
@@ -563,6 +565,42 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.view-details-btn').forEach(btn => {
             btn.addEventListener('click', handleViewDetails);
         });
+    }
+
+    function updateResultMeta(totalProducts) {
+        const resultsCount = document.getElementById('resultsCount');
+        if (resultsCount) {
+            resultsCount.textContent = totalProducts;
+        }
+    }
+
+    function updateActiveCollectionLabel() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const categoryParam = urlParams.get('category');
+        const activeCollection = document.getElementById('activeCollection');
+
+        if (!activeCollection) return;
+
+        const categoryTitles = {
+            'almonds': 'Almonds',
+            'cashews': 'Cashews',
+            'welnuts': 'Walnuts',
+            'pistachios': 'Pistachios',
+            'dates': 'Dates',
+            'apricots': 'Apricots',
+            'figs': 'Figs',
+            'raisins': 'Raisins',
+            'mixed-nuts': 'Mixed Nuts',
+            'mixed-dry-fruits': 'Mixed Packs',
+            'seeds': 'Seeds',
+            'gifting': 'Gift Packs',
+            'combo-packs': 'Combo Packs',
+            'gift-packs': 'Gift Packs',
+            'corporate-gifting': 'Corporate Gifting',
+            'best-products': 'All Collection'
+        };
+
+        activeCollection.textContent = categoryTitles[categoryParam] || 'All Collection';
     }
     
     // Display pagination

@@ -197,6 +197,7 @@
     <main class="products-page" style="margin-top: 180px;">
         <section class="products-hero">
             <div class="hero-content">
+                <p class="hero-kicker">Premium Collection</p>
                 <h1>Premium Dry Fruits & Nuts</h1>
                 <p>Fresh, high-quality dry fruits sourced from the best regions</p>
                 <div class="search-bar">
@@ -206,8 +207,34 @@
             </div>
         </section>
 
+        <section class="collection-strip">
+            <div class="collection-strip-inner">
+                <a href="products.html?category=best-products" class="collection-chip">All Collection</a>
+                <a href="products.html?category=almonds" class="collection-chip">Almonds</a>
+                <a href="products.html?category=cashews" class="collection-chip">Cashews</a>
+                <a href="products.html?category=welnuts" class="collection-chip">Walnuts</a>
+                <a href="products.html?category=pistachios" class="collection-chip">Pistachios</a>
+                <a href="products.html?category=dates" class="collection-chip">Dates</a>
+                <a href="products.html?category=raisins" class="collection-chip">Raisins</a>
+                <a href="products.html?category=mixed-dry-fruits" class="collection-chip">Mixed Packs</a>
+            </div>
+        </section>
+
         <section class="products-container">
             <aside class="filters-sidebar">
+                <div class="filter-section">
+                    <h3>Browse By Category</h3>
+                    <div class="sidebar-links">
+                        <a href="products.html?category=best-products">All Collection</a>
+                        <a href="products.html?category=almonds">Almonds</a>
+                        <a href="products.html?category=cashews">Cashews</a>
+                        <a href="products.html?category=welnuts">Walnuts</a>
+                        <a href="products.html?category=pistachios">Pistachios</a>
+                        <a href="products.html?category=dates">Dates</a>
+                        <a href="products.html?category=raisins">Raisins</a>
+                    </div>
+                </div>
+
                 <div class="filter-section">
                     <h3>Price Range</h3>
                     <div class="price-filter">
@@ -258,7 +285,10 @@
 
             <div class="products-content">
                 <div class="products-header">
-                    <h2>Our Products</h2>
+                    <div>
+                        <h2>Our Products</h2>
+                        <p class="products-subtitle"><span id="resultsCount">0</span> products available in <span id="activeCollection">All Collection</span></p>
+                    </div>
                     <div class="view-options">
                         <button class="view-btn active" data-view="grid">Grid</button>
                         <button class="view-btn" data-view="list">List</button>
