@@ -89,7 +89,11 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/products', require('./routes/products'));
 app.use('/api/orders', require('./routes/orders'));
 app.use('/api/users', require('./routes/users'));
-app.use('/api/payments', require('./routes/payments'));
+if (process.env.STRIPE_SECRET_KEY) {
+    app.use('/api/payments', require('./routes/payments'));
+} else {
+    console.warn('⚠️ STRIPE_SECRET_KEY not set, payments routes disabled.');
+}
 
 // Health check endpoints
 app.get('/health', (req, res) => {
