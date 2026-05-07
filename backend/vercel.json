@@ -6,6 +6,12 @@
       "use": "@vercel/node"
     }
   ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "server-prod.js"
+    }
+  ],
   "env": {
     "MONGODB_URI": "mongodb+srv://gbdryfruits-admin:Mubi@123@gbdryfruits-cluster.xrkmz4c.mongodb.net/?appName=gbdryfruits-cluster",
     "NODE_ENV": "production",

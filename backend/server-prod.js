@@ -178,11 +178,13 @@ process.on('SIGINT', () => {
     });
 });
 
-// Start server
-app.listen(PORT, () => {
-    console.log(`🚀 GBDRYFRUITS server running on port ${PORT}`);
-    console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
-    console.log(`📊 Health check: http://localhost:${PORT}/health`);
-});
+// Start server only outside Vercel serverless runtime.
+if (!process.env.VERCEL) {
+    app.listen(PORT, () => {
+        console.log(`🚀 GBDRYFRUITS server running on port ${PORT}`);
+        console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+        console.log(`📊 Health check: http://localhost:${PORT}/health`);
+    });
+}
 
 module.exports = app;
