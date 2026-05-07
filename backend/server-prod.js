@@ -79,7 +79,9 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/gbdryfrui
 .then(() => console.log('✅ MongoDB connected to GBDRYFRUITS database'))
 .catch(err => {
     console.error('❌ MongoDB connection error:', err);
-    process.exit(1);
+    // In serverless environments (e.g., Vercel), exiting the process crashes
+    // every request. Keep the function alive so health and diagnostics endpoints
+    // can still respond while configuration issues are fixed.
 });
 
 // Routes
